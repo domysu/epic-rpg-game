@@ -8,13 +8,17 @@ using Engine.Models;
 
 namespace Engine.ViewModels
 {
-    internal class GameSession
+    public class GameSession
     {
-        Player CurrentPlayer {  get; set; }
+       public Player CurrentPlayer {  get; set; }
         public GameSession() { 
         
             CurrentPlayer = new Player();
             CurrentPlayer.Name = "Domis";
+            CurrentPlayer.CharacterClass = "Wolf";
+            CurrentPlayer.HitPoints = 10;
+            CurrentPlayer.Level = 1;
+            
             CurrentPlayer.Gold = 123123;
         
         }

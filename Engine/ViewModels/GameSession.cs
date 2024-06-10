@@ -11,6 +11,7 @@ namespace Engine.ViewModels
     public class GameSession
     {
        public Player CurrentPlayer {  get; set; }
+        public Location CurrentLocation { get; set; }
         public GameSession() { 
         
             CurrentPlayer = new Player();
@@ -20,6 +21,13 @@ namespace Engine.ViewModels
             CurrentPlayer.Level = 1;
             
             CurrentPlayer.Gold = 123123;
+
+            CurrentLocation = new Location();
+            CurrentLocation.Name = "Home";
+            CurrentLocation.XCoordinate = 0;
+            CurrentLocation.YCoordinate = -1;
+            CurrentLocation.Description = "This is your house";
+            CurrentLocation.ImageName = "pack://application:,,,/Engine;component/Images/Home.png";
         
         }
 

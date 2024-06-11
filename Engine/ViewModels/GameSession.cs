@@ -1,12 +1,5 @@
-﻿using Engine.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Engine.Factories;
 using Engine.Models;
-using Engine.Factories;
-using System.ComponentModel;
 
 namespace Engine.ViewModels
 {
@@ -61,19 +54,24 @@ namespace Engine.ViewModels
         }
         public GameSession() { 
         
-            CurrentPlayer = new Player();
-            CurrentPlayer.Name = "Domis";
-            CurrentPlayer.CharacterClass = "Wolf";
-            CurrentPlayer.HitPoints = 10;
-            CurrentPlayer.Level = 1;
-            
-            CurrentPlayer.Gold = 123123;
+            CurrentPlayer = new Player 
+            { Name = "Domis",
+                CharacterClass="Fighter",
+                HitPoints=10, 
+                Level=1, 
+                Gold=1
+            };
 
-            
 
-            
+
+            /*
             WorldFactory factory = new WorldFactory();
             CurrentWorld = factory.CreateWorld();
+            */
+
+            // Without static declaration ^^
+
+            CurrentWorld = WorldFactory.CreateWorld();
 
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
@@ -83,24 +81,36 @@ namespace Engine.ViewModels
      
         public void MoveNorth()
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1);        
+            if (HasLocationToNorth)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1);
+            }
         }
         public void MoveWest()
         {
-            CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
-        
+
+            if (HasLocationToWest)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
+            }
         }
         public void MoveEast() {
-        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate+1, CurrentLocation.YCoordinate );
-        
+            if (HasLocationToEast)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate);
+            }
         }  
         
-        public void MoveSouth() { 
-        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate-1);
+        public void MoveSouth() {
+            if (HasLocationToSouth)
+            {
+                CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1);
+            }
         }
 
         public void WarpHome()
         {
+
             CurrentLocation = CurrentWorld.LocationAt(0, -1); // The coordinates are our homes coordinates
         }
 

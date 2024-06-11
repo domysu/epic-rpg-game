@@ -13,6 +13,7 @@ namespace Engine.Factories
         {
             World newWorld = new World();
             newWorld.AddLocation(0, -1, "Home", "This is your home", "pack://application:,,,/Engine;component/Images/Home.png");
+
                  newWorld.AddLocation(-2, -1, "Farmer's Field", 
                 "There are rows of corn growing here, with giant rats hiding between them.", 
                 "pack://application:,,,/Engine;component/Images/FarmFields.png");

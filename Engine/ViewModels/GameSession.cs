@@ -21,6 +21,12 @@ namespace Engine.ViewModels
             set { 
               _currentLocation = value;
                 OnPropertyChanged(nameof(CurrentLocation));
+
+                OnPropertyChanged(nameof(HasLocationToNorth));
+                OnPropertyChanged(nameof(HasLocationToSouth));
+                OnPropertyChanged(nameof(HasLocationToWest));
+                OnPropertyChanged(nameof(HasLocationToEast));
+
             
             } 
         }
@@ -85,12 +91,12 @@ namespace Engine.ViewModels
         
         }
         public void MoveEast() {
-        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1);
+        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate+1, CurrentLocation.YCoordinate );
         
         }  
         
         public void MoveSouth() { 
-        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate);
+        CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate-1);
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;

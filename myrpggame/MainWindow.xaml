@@ -6,6 +6,10 @@
         xmlns:local="clr-namespace:myrpggame"
         mc:Ignorable="d"
          Title="Epic Game" Height="768" Width="1024">
+
+    <Window.Resources>
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -110,19 +114,24 @@
                 <Button Grid.Row="0" Grid.Column="1" 
         Height="25" Width="65" Margin="5" 
         Content="North"
-        Click="OnClick_MoveNorth"/>
+        Click="OnClick_MoveNorth"
+        Visibility="{Binding HasLocationToNorth, Converter={StaticResource BooleanToVisibility}}"/>
                 <Button Grid.Row="1" Grid.Column="0" 
         Height="25" Width="65" Margin="5" 
         Content="West"
-        Click="OnClick_MoveWest"/>
+        Click="OnClick_MoveWest"
+         Visibility="{Binding HasLocationToWest, Converter={StaticResource BooleanToVisibility}}"/>
+        
                 <Button Grid.Row="1" Grid.Column="2" 
         Height="25" Width="65" Margin="5" 
         Content="East"
-        Click="OnClick_MoveEast"/>
+        Click="OnClick_MoveEast"
+Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisibility}}"/>
                 <Button Grid.Row="2" Grid.Column="1" 
         Height="25" Width="65" Margin="5" 
         Content="South"
-        Click="OnClick_MoveSouth"/>
+        Click="OnClick_MoveSouth"
+                        Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"/>
 
             </Grid>
             

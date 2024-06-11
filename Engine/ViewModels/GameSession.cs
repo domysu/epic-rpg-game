@@ -10,7 +10,7 @@ using System.ComponentModel;
 
 namespace Engine.ViewModels
 {
-    public class GameSession : INotifyPropertyChanged
+    public class GameSession : BaseNotificationClass
     {
 
 
@@ -20,7 +20,7 @@ namespace Engine.ViewModels
         public Location CurrentLocation { get { return _currentLocation; } 
             set { 
               _currentLocation = value;
-                OnPropertyChanged(nameof(CurrentLocation));
+                OnPropertyChanged(nameof(CurrentLocation)); // nameof  for if we gonna rename the object
 
                 OnPropertyChanged(nameof(HasLocationToNorth));
                 OnPropertyChanged(nameof(HasLocationToSouth));
@@ -97,12 +97,6 @@ namespace Engine.ViewModels
         
         public void MoveSouth() { 
         CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate-1);
-        }
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-        protected virtual void OnPropertyChanged(string propertyName)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
         public void WarpHome()

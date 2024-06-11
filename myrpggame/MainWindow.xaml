@@ -132,6 +132,7 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
         Content="South"
         Click="OnClick_MoveSouth"
                         Visibility="{Binding HasLocationToSouth, Converter={StaticResource BooleanToVisibility}}"/>
+                <Button Grid.Row="1" Grid.Column="1" Content="Home" Click="OnClick_WarpHome"></Button>
 
             </Grid>
             

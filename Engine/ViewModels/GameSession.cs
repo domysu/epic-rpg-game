@@ -105,6 +105,10 @@ namespace Engine.ViewModels
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
 
+        public void WarpHome()
+        {
+            CurrentLocation = CurrentWorld.LocationAt(0, -1); // The coordinates are our homes coordinates
+        }
 
     }
 }

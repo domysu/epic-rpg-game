@@ -43,5 +43,9 @@ namespace myrpggame
         {
             _gameSession.MoveSouth();
         }
+        private void OnClick_WarpHome(object sender, RoutedEventArgs e)
+        {
+            _gameSession.WarpHome();
+        }
     }
 }

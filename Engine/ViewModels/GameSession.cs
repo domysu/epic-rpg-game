@@ -75,6 +75,8 @@ namespace Engine.ViewModels
 
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
+
+            CurrentPlayer.Inventory.Add(ItemFactory.CreateGameItem(1001));
         
         }
 

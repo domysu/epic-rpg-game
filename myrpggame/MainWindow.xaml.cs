@@ -9,6 +9,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Engine.ViewModels;
+using Engine.EventArgs;
 
 namespace myrpggame
 {
@@ -23,6 +24,7 @@ namespace myrpggame
             
             InitializeComponent();
             _gameSession = new GameSession();
+            _gameSession.GameInformation += OnGameMessageRaised;
             DataContext = _gameSession;
 
         }
@@ -46,6 +48,12 @@ namespace myrpggame
         private void OnClick_WarpHome(object sender, RoutedEventArgs e)
         {
             _gameSession.WarpHome();
+        }
+
+        private void OnGameMessageRaised(object sender, GameInformationEventArgs e)
+        {
+            GameLogs.AppendText(e.Message + Environment.NewLine);
+            GameLogs.ScrollToEnd();
         }
     }
 }

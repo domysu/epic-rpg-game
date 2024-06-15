@@ -10,6 +10,8 @@
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />
     </Window.Resources>
+    
+    <!-- Player Information -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -54,7 +56,7 @@
             
             
         </Grid>
-
+            <!-- Gameplay-->
         <Grid Grid.Row="1" Grid.Column="1" Background="Beige">
 
             <Grid.RowDefinitions>
@@ -66,6 +68,7 @@
                 <ColumnDefinition Width="3*"></ColumnDefinition>
                 <ColumnDefinition Width="2*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
+            <!-- Location -->
             <Border Grid.Row="0" Grid.Column="1" BorderBrush="Gainsboro" BorderThickness="1">
 
 
@@ -83,6 +86,8 @@
                 </Grid>
 
             </Border>
+            
+            <!-- Monsters -->
             <Border Grid.Row="1" Grid.Column="1"
                     BorderBrush="Gainsboro"
                     BorderThickness="1">
@@ -112,11 +117,31 @@
                 </Grid>
             </Border>
 
+            <!-- Information    -->
+            <Border Grid.Column="0" BorderBrush="Gray" BorderThickness="1" Grid.RowSpan="2">
+
+                <TextBox x:Name="GameLogs" Background="Beige">
+
+                    <TextBox.Resources>
+                        <Style TargetType="{x:Type Paragraph}">
+                            <Setter Property="Margin" Value="0"></Setter>
+                        </Style>
+                        
+                        
+                    </TextBox.Resources>
+                    
+                    
+                </TextBox>
+
+
+
+            </Border>
+
 
 
         </Grid>
 
-
+            <!-- Actions-->
         <Grid Grid.Row="2" Grid.Column="1" Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>

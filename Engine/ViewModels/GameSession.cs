@@ -1,10 +1,13 @@
 ﻿using System.Linq;
+using Engine.EventArgs;
 using Engine.Factories;
 using Engine.Models;
 namespace Engine.ViewModels
 {
     public class GameSession : BaseNotificationClass
     {
+
+        public EventHandler<GameInformationEventArgs> GameInformation;
         private Location _currentLocation;
         private Monster _currentMonster;
         public World CurrentWorld { get; set; }
@@ -33,6 +36,11 @@ namespace Engine.ViewModels
                 _currentMonster = value;
                 OnPropertyChanged(nameof(CurrentMonster));
                 OnPropertyChanged(nameof(HasMonster));
+
+                if(CurrentMonster != null)
+                {
+                    RaiseMessage($"You have encountered {CurrentMonster.Name}!!");
+                }
             } 
         }
         public bool HasLocationToNorth
@@ -109,7 +117,14 @@ namespace Engine.ViewModels
 
         public void WarpHome()
         {
+
+            if (CurrentLocation != CurrentWorld.LocationAt(0,-1))
+            {
+                RaiseMessage("You have safely traveled home! ");
+            }
             CurrentLocation = CurrentWorld.LocationAt(0, -1); // The coordinates are our home's coordinates
+         
+          
         }
         private void GivePlayerQuestsAtLocation()
         {
@@ -129,7 +144,13 @@ namespace Engine.ViewModels
 
 
         }
+
+
+        private void RaiseMessage(string message)
+        {
+            GameInformation?.Invoke(this, new GameInformationEventArgs(message));
+        }
     }
-
-
 }
+
+  

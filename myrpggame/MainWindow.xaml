@@ -168,6 +168,30 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
 
 
                 </TabItem>
+
+                <TabItem Header="Quests">
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Quests}"
+                              AutoGenerateColumns="False"
+                              HeadersVisibility="Column">
+                        
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding PlayerQuest.Description}" Width="*" Header="Description">
+                            
+                            </DataGridTextColumn>
+                       
+                            
+                            
+                        </DataGrid.Columns>
+                        
+                        
+                    </DataGrid>
+                    
+                    
+                    
+                    
+                </TabItem>
+                
+                
                
       
             </TabControl>

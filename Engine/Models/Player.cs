@@ -5,7 +5,6 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 namespace Engine.Models
 {
     public class Player : BaseNotificationClass
@@ -70,14 +69,12 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(Gold));
             }
         }
-       
-
         public ObservableCollection<GameItem> Inventory { get; set; }
+        public ObservableCollection<QuestStatus> Quests { get; set; }
         public Player()
         {
             Inventory = new ObservableCollection<GameItem>();
+            Quests = new ObservableCollection<QuestStatus>();
         }
-
-
     }
 }

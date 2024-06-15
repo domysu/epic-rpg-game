@@ -17,6 +17,7 @@ namespace Engine.Models
             loc .Name = name;
             loc .Description = description;
             loc .ImageName = imageName;
+      
 
             _locations.Add(loc);
            

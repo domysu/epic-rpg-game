@@ -44,6 +44,7 @@ namespace Engine.Models
             ImageName = string.Format("pack://application:,,,/Engine;component/Images/Monsters/{0}", imageName);
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;
+            Inventory = new ObservableCollection<ItemQuantity>();
 
 
         }

@@ -30,4 +30,8 @@
     <Resource Include="Images\Trader.png" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Images\Monsters\" />
+  </ItemGroup>
+
 </Project>

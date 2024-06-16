@@ -19,7 +19,7 @@ namespace Engine.Factories
             {
                 case 1:
                     {
-                        Monster snake = new Monster(2, "Snake", "A venomous snake", "Snake.png", 20, 25);
+                        Monster snake = new Monster(2, "Snake", "A venomous snake", "Snake.png", 20, 25,1,2);
                         AddLootItem(snake, 9001, 75);
                         AddLootItem(snake, 9002, 25);
                         return snake;
@@ -27,7 +27,7 @@ namespace Engine.Factories
                     }
                 case 2:
                     {
-                        Monster giantSpider = new Monster(4, "GiantSpider", "A dangerous spider", "GiantSpider.png", 25, 35);
+                        Monster giantSpider = new Monster(4, "GiantSpider", "A dangerous spider", "GiantSpider.png", 25, 35, 1, 4);
                         AddLootItem(giantSpider, 9005, 25);
                         AddLootItem(giantSpider, 9006, 75);
                         return giantSpider;
@@ -35,7 +35,7 @@ namespace Engine.Factories
                     }
                 case 3:
                     {
-                        Monster rat = new Monster(1, "Rat", "Cheesy Rat", "Rat.png", 10, 10);
+                        Monster rat = new Monster(4, "Rat", "Cheesy Rat", "Rat.png", 10, 10, 1, 1);
                         AddLootItem(rat, 9003, 25);
                         AddLootItem(rat, 9004, 75);
                         return rat;

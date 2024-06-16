@@ -49,7 +49,10 @@ namespace myrpggame
         {
             _gameSession.WarpHome();
         }
-
+        private void OnClick_AttackMonster(object sender, RoutedEventArgs e)
+        {
+            _gameSession.AttackCurrentMonster();
+        }
         private void OnGameMessageRaised(object sender, GameInformationEventArgs e)
         {
             GameLogs.AppendText(e.Message + Environment.NewLine);

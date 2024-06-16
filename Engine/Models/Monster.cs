@@ -29,13 +29,15 @@ namespace Engine.Models
             }
 
         }
+        public int MinimumDamage { get; set; }
+        public int MaximumDamage { get; set; }
         public int RewardExperiencePoints { get; set; }
         public int RewardGold { get;set; }
 
         public ObservableCollection<ItemQuantity> Inventory { get; set; }
 
 
-        public Monster(int hitPoints, string name, string description, string imageName, int rewardExperiencePoints, int rewardGold)
+        public Monster(int hitPoints, string name, string description, string imageName, int rewardExperiencePoints, int rewardGold, int minimumDamage, int maximumDamage)
         {
 
             HitPoints = hitPoints;
@@ -45,6 +47,8 @@ namespace Engine.Models
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;
             Inventory = new ObservableCollection<ItemQuantity>();
+            MinimumDamage = minimumDamage;
+            MaximumDamage = maximumDamage;
 
 
         }

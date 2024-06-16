@@ -12,10 +12,17 @@
     <None Remove="Images\HerbalistsGarden.png" />
     <None Remove="Images\HerbalistsHut.png" />
     <None Remove="Images\Home.png" />
+    <None Remove="Images\Monsters\GiantSpider.png" />
+    <None Remove="Images\Monsters\Rat.png" />
+    <None Remove="Images\Monsters\Snake.png" />
     <None Remove="Images\SpiderForest.png" />
     <None Remove="Images\TownGate.png" />
     <None Remove="Images\TownSquare.png" />
     <None Remove="Images\Trader.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Images\Monsters\GiantSpider.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -24,14 +31,12 @@
     <Resource Include="Images\HerbalistsGarden.png" />
     <Resource Include="Images\HerbalistsHut.png" />
     <Resource Include="Images\Home.png" />
+    <Resource Include="Images\Monsters\Rat.png" />
+    <Resource Include="Images\Monsters\Snake.png" />
     <Resource Include="Images\SpiderForest.png" />
     <Resource Include="Images\TownGate.png" />
     <Resource Include="Images\TownSquare.png" />
     <Resource Include="Images\Trader.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Images\Monsters\" />
   </ItemGroup>
 
 </Project>

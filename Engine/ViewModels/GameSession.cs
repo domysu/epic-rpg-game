@@ -133,6 +133,7 @@ namespace Engine.ViewModels
                 if (!CurrentPlayer.Quests.Any(q => q.PlayerQuest.ID == quest.ID))
                 {
                     CurrentPlayer.Quests.Add(new QuestStatus(quest));
+                    RaiseMessage($"You have received a quest: {quest.Name}");
                 }
             }
         }

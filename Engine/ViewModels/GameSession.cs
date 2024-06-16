@@ -79,8 +79,8 @@ namespace Engine.ViewModels
             {
                 Name = "Domis",
                 CharacterClass = "Fighter",
-                HitPoints = 10,
-                Gold = 1000000,
+                HitPoints = 3,
+                Gold = 0,
                 ExperiencePoints = 0,
                 Level = 1
             };
@@ -120,6 +120,8 @@ namespace Engine.ViewModels
             }
         }
 
+        
+
         public void WarpHome()
         {
 
@@ -150,6 +152,11 @@ namespace Engine.ViewModels
 
 
         }
+        private void DeleteMonsterAtLocation()
+        {
+            CurrentMonster = null;
+
+        }
         public void AttackCurrentMonster()
         {
             if (CurrentWeapon == null)
@@ -171,6 +178,7 @@ namespace Engine.ViewModels
             // If monster if killed, collect rewards and loot
             if (CurrentMonster.HitPoints <= 0)
             {
+              
                 RaiseMessage("");
                 RaiseMessage($"You defeated the {CurrentMonster.Name}!");
                 CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
@@ -183,8 +191,8 @@ namespace Engine.ViewModels
                     CurrentPlayer.AddItemToInventory(item);
                     RaiseMessage($"You receive {itemQuantity.Quantity} {item.Name}.");
                 }
-                // Get another monster to fight
-                GetMonsterAtLocation();
+                DeleteMonsterAtLocation(); // Deletes monste at current location
+              
             }
             else
             {
@@ -199,11 +207,12 @@ namespace Engine.ViewModels
                     CurrentPlayer.HitPoints -= damageToPlayer;
                     RaiseMessage($"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
                 }
-                // If player is killed, move them back to their home.
+                // If player is killed, clear their inventory and move back to their home.
                 if (CurrentPlayer.HitPoints <= 0)
                 {
                     RaiseMessage("");
                     RaiseMessage($"The {CurrentMonster.Name} killed you.");
+                    CurrentPlayer.Death(); // Clears Players Inventory
                     CurrentLocation = CurrentWorld.LocationAt(0, -1); // Player's home
                     CurrentPlayer.HitPoints = CurrentPlayer.Level * 10; // Completely heal the player
                 }

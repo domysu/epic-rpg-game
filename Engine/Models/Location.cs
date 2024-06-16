@@ -2,12 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Engine.Models
 {
-    public class Location
+    public class Location : BaseNotificationClass
     {
 
         public int XCoordinate { get; set; }
@@ -35,8 +36,12 @@ namespace Engine.Models
 
             }
 
+         
+
 
         }
+
+   
         public Monster GetMonster()
         {
             if (!MonstersHere.Any())

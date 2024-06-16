@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Engine.Factories;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -84,6 +85,23 @@ namespace Engine.Models
         {
             Inventory.Add(item);
             OnPropertyChanged(nameof(Weapons));
+        }
+
+        public void RemoveItemFromInventory(GameItem item)
+        {
+            Inventory.Remove(item);
+            OnPropertyChanged(nameof(Weapons));
+
+            
+
+        }
+
+        public void Death()
+        {
+            Inventory.Clear();
+            AddItemToInventory(ItemFactory.CreateGameItem(1001));
+
+
         }
     }
 }

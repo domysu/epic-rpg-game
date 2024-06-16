@@ -33,6 +33,7 @@ namespace Engine.Factories
             newWorld.AddLocation(1, 0, "Town Gate",
                 "There is a gate here, protecting the town from giant spiders.",
                 "pack://application:,,,/Engine;component/Images/TownGate.png");
+            newWorld.LocationAt(1,0).AddMonster(2, 100);
             newWorld.AddLocation(2, 0, "Spider Forest",
                 "The trees in this forest are covered with spider webs.",
                 "pack://application:,,,/Engine;component/Images/SpiderForest.png");
@@ -43,6 +44,7 @@ namespace Engine.Factories
             newWorld.AddLocation(0, 2, "Herbalist's garden",
                 "There are many plants here, with snakes hiding behind them.",
                 "pack://application:,,,/Engine;component/Images/HerbalistsGarden.png");
+            newWorld.LocationAt(0,2).AddMonster(1, 100);
 
             return newWorld;
         }

@@ -12,6 +12,8 @@ namespace Engine.ViewModels
         private Monster _currentMonster;
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer { get; set; }
+
+        public Shop CurrentShop { get; set; } = new();
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -43,36 +45,19 @@ namespace Engine.ViewModels
                 }
             } 
         }
-        public bool HasLocationToNorth
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
-            }
-        }
-        public bool HasLocationToEast
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
-            }
-        }
-        public bool HasLocationToSouth
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
-            }
-        }
-        public bool HasLocationToWest
-        {
-            get
-            {
-                return CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
-            }
-        }
-        public Weapons CurrentWeapon { get; set; }
+        public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
+
+        public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
+
+        public bool HasLocationToSouth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
+      
+        public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
+
         public bool HasMonster => CurrentMonster != null;
+
+
+        public Weapons CurrentWeapon { get; set; }
+        
         public GameSession()
         {
             CurrentPlayer = new Player
@@ -90,6 +75,11 @@ namespace Engine.ViewModels
             }
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
+
+
+            CurrentShop.AddItemToShop(ItemFactory.CreateGameItem(1001));
+
+
         }
         public void MoveNorth()
         {
@@ -119,6 +109,9 @@ namespace Engine.ViewModels
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
             }
         }
+
+
+        
 
         
 
@@ -217,6 +210,27 @@ namespace Engine.ViewModels
                     CurrentPlayer.HitPoints = CurrentPlayer.Level * 10; // Completely heal the player
                 }
             }
+        }
+        
+        public void BuyItem(int id)
+        {
+            var item = CurrentShop.AvailableItemsToBuy.FirstOrDefault(x => x.ItemTypeID == id);
+            if(item != null)
+            {
+                if(CurrentPlayer.Gold > item.Price) // checks if player has enough gold
+                {
+                    CurrentPlayer.AddItemToInventory(item); // adds item to inventory
+                    CurrentPlayer.Gold -= item.Price; // subtracts currentplayers gold from price of item
+                    RaiseMessage($"You have successfully bought '{item.Name}'");
+
+                }
+                else
+                {
+                    RaiseMessage("You dont have enough gold to buy this item!");
+                }
+                
+            }
+
         }
 
         private void RaiseMessage(string message)

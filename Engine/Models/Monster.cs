@@ -43,7 +43,7 @@ namespace Engine.Models
             HitPoints = hitPoints;
             Name = name;
             Description = description;
-            ImageName = string.Format("pack://application:,,,/Engine;component/Images/Monsters/{0}", imageName);
+            ImageName = $"pack://application:,,,/Engine;component/Images/Monsters/{imageName}";
             RewardExperiencePoints = rewardExperiencePoints;
             RewardGold = rewardGold;
             Inventory = new ObservableCollection<ItemQuantity>();

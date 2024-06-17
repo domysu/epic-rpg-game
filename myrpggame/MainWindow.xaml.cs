@@ -58,5 +58,19 @@ namespace myrpggame
             GameLogs.AppendText(e.Message + Environment.NewLine);
             GameLogs.ScrollToEnd();
         }
+
+        private void OnGameBuyItemPressed(object sender, RoutedEventArgs e)
+        {
+            
+            var button = sender as Button;
+
+            if (button != null)
+            {
+                int itemId = (int)button.CommandParameter;
+                _gameSession.BuyItem(itemId);
+                
+            }
+
+        }
     }
 }

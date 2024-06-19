@@ -67,6 +67,7 @@ namespace myrpggame
             if (button != null)
             {
                 int itemId = (int)button.CommandParameter;
+               
                 _gameSession.BuyItem(itemId);
                 
             }

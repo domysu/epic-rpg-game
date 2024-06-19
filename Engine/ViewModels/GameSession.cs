@@ -30,8 +30,9 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToWest));
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 GivePlayerQuestsAtLocation();
-                CurrentTrader = _currentLocation.TraderHere;
+               
                 GetMonsterAtLocation();
+                CurrentTrader = CurrentLocation.TraderHere;
             }
         }
 
@@ -234,7 +235,7 @@ namespace Engine.ViewModels
         
         public void BuyItem(int id)
         {
-            var item = CurrentShop.AvailableItemsToBuy.FirstOrDefault(x => x.ItemTypeID == id);
+            var item = CurrentTrader.Inventory.FirstOrDefault(x => x.ItemTypeID == id);
             if(item != null)
             {
                 if(CurrentPlayer.Gold >= item.Price) // checks if player has enough gold

@@ -22,7 +22,7 @@ namespace Engine.Factories
                     {
                         Trader susan = new Trader("Susan", "Trader Susan");
                         _traders.Add(susan);
-                        AddItemToShop(susan, 1002);
+                        susan.AddItemToInventory(ItemFactory.CreateGameItem(1002));
                         return susan;
                     }
 
@@ -30,7 +30,7 @@ namespace Engine.Factories
                     {
                         Trader ted = new Trader("Ted", "Trader Ted");
                         _traders.Add(ted);
-                        AddItemToShop(ted, 1001);
+                        ted.AddItemToInventory(ItemFactory.CreateGameItem(1001));
                         return ted;
 
                     }
@@ -42,12 +42,7 @@ namespace Engine.Factories
             }
         }
 
-        public static void AddItemToShop(Trader trader, int itemID)
-        {
-        
-        trader.Inventory.Add(new ItemQuantity(itemID,1));
-        
-        }
+     
 
 
     }

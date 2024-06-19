@@ -13,14 +13,25 @@ namespace Engine.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        public ObservableCollection<ItemQuantity> Inventory { get; set; }
-        public Trader( string name, string description)
+        public ObservableCollection<GameItem> Inventory { get; set; }
+        public Trader(string name, string description)
         {
 
-        Name = name;
-        Description = description;
-        Inventory = new ObservableCollection<ItemQuantity>();
-        
+            Name = name;
+            Description = description;
+            Inventory = new ObservableCollection<GameItem>();
+
+        }
+
+        public void AddItemToInventory(GameItem item)
+        {
+            Inventory.Add(item);
+
+        }
+
+        public void RemoveItemFromInventory(GameItem item)
+        {
+              Inventory.Remove(item);
         }
     }
 }

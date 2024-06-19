@@ -288,7 +288,7 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <!--<Button Click="OnGameBuyItemPressed" Content="Buy" CommandParameter="{Binding ItemTypeID}"></Button>-->
+                                        <Button Click="OnGameBuyItemPressed" Content="Buy" CommandParameter="{Binding ItemTypeID}"></Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

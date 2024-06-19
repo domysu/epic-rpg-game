@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 namespace Engine.Models
 {
@@ -96,6 +97,19 @@ namespace Engine.Models
 
         }
 
+        public bool HasAllTheseItems(List<ItemQuantity> items)
+        {
+            foreach(ItemQuantity item in items)
+            {
+
+                if(Inventory.Count(i=>i.ItemTypeID==item.ItemID) < item.Quantity)
+                {
+                    return false;
+                }
+
+            }
+            return true;
+        }
         public void Death()
         {
             Inventory.Clear();

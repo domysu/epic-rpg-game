@@ -18,15 +18,18 @@ namespace Engine.Factories
                 "There are rows of corn growing here, with giant rats hiding between them.", 
                 "FarmFields.png");
             newWorld.LocationAt(-2, -1).AddMonster(3, 100);
+
             newWorld.AddLocation(-1, -1, "Farmer's House",
                 "This is the house of your neighbor, Farmer Ted.",
                 "FarmHouse.png");
+            newWorld.LocationAt(-1, -1).TraderHere = TraderFactory.GetTrader(1);
             newWorld.AddLocation(0, -1, "Home", 
                 "This is your home",
                 "Home.png");
             newWorld.AddLocation(-1, 0, "Trading Shop",
                 "The shop of Susan, the trader.",
                 "Trader.png");
+            newWorld.LocationAt(-1, 0).TraderHere = TraderFactory.GetTrader(2);
             newWorld.AddLocation(0, 0, "Town square",
                 "You see a fountain here.",
                 "TownSquare.png");

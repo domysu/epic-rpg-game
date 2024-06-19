@@ -10,10 +10,14 @@ namespace Engine.ViewModels
         public EventHandler<GameInformationEventArgs> GameInformation;
         private Location _currentLocation;
         private Monster _currentMonster;
+        private Trader _currentTrader;
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer { get; set; }
 
-        public Shop CurrentShop { get; set; } = new();
+        public Shop CurrentShop { get; set; } = new(); // need cleanup here
+
+  
+
         public Location CurrentLocation
         {
             get { return _currentLocation; }
@@ -26,6 +30,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToWest));
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 GivePlayerQuestsAtLocation();
+                CurrentTrader = _currentLocation.TraderHere;
                 GetMonsterAtLocation();
             }
         }
@@ -45,6 +50,19 @@ namespace Engine.ViewModels
                 }
             } 
         }
+
+        public Trader CurrentTrader
+        {
+            get { return _currentTrader; }
+            set
+            {
+                _currentTrader = value;
+                OnPropertyChanged(nameof(CurrentTrader));
+                OnPropertyChanged(nameof(HasTrader));
+            }
+
+
+        }
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
 
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
@@ -54,6 +72,7 @@ namespace Engine.ViewModels
         public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
 
         public bool HasMonster => CurrentMonster != null;
+        public bool HasTrader => CurrentTrader != null;
 
 
         public Weapons CurrentWeapon { get; set; }
@@ -77,8 +96,7 @@ namespace Engine.ViewModels
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
 
-            CurrentShop.AddItemToShop(ItemFactory.CreateGameItem(1001));
-
+           
 
         }
         public void MoveNorth()
@@ -126,6 +144,8 @@ namespace Engine.ViewModels
          
           
         }
+
+
         private void GivePlayerQuestsAtLocation()
         {
             foreach (Quest quest in CurrentLocation.QuestsHere)
@@ -217,11 +237,11 @@ namespace Engine.ViewModels
             var item = CurrentShop.AvailableItemsToBuy.FirstOrDefault(x => x.ItemTypeID == id);
             if(item != null)
             {
-                if(CurrentPlayer.Gold > item.Price) // checks if player has enough gold
+                if(CurrentPlayer.Gold >= item.Price) // checks if player has enough gold
                 {
                     CurrentPlayer.AddItemToInventory(item); // adds item to inventory
                     CurrentPlayer.Gold -= item.Price; // subtracts currentplayers gold from price of item
-                    RaiseMessage($"You have successfully bought '{item.Name}'");
+                    RaiseMessage($"You have successfully bought {item.Name}");
 
                 }
                 else

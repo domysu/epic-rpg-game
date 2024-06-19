@@ -41,7 +41,7 @@ namespace Engine.Factories
                         return rat;
                     }
                 default:
-                    throw new ArgumentException(string.Format("No spider with id '{0}' exists", MonsterID));
+                    throw new ArgumentException(string.Format("No monster with id '{0}' exists", MonsterID));
             }
         }
         private static void AddLootItem(Monster monster, int itemID, int percentage)

@@ -14,7 +14,7 @@ namespace Engine.ViewModels
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer { get; set; }
 
-        public Shop CurrentShop { get; set; } = new(); // need cleanup here
+        public Shop CurrentShop { get; set; }
 
   
 
@@ -246,6 +246,7 @@ namespace Engine.ViewModels
                     RaiseMessage($"You receive {itemQuantity.Quantity} {item.Name}.");
                 }
                 DeleteMonsterAtLocation(); // Deletes monste at current location
+                
               
             }
             else

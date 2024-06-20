@@ -101,9 +101,11 @@ namespace Engine.Models
         {
             foreach(ItemQuantity item in items)
             {
+                Console.WriteLine($"Debugging: {0}", item.ItemID);
 
-                if(Inventory.Count(i=>i.ItemTypeID==item.ItemID) < item.Quantity)
+                if (Inventory.Count(i=>i.ItemTypeID==item.ItemID) < item.Quantity)
                 {
+                    Console.WriteLine($"Debugging: {0}", item.ItemID);
                     return false;
                 }
 

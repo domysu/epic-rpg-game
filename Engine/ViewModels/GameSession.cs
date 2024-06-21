@@ -239,11 +239,10 @@ namespace Engine.ViewModels
                 RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
                 CurrentPlayer.Gold += CurrentMonster.Gold;
                 RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
-                foreach (ItemQuantity itemQuantity in CurrentMonster.Inventory)
+                foreach (GameItem gameItem in CurrentMonster.Inventory)
                 {
-                    GameItem item = ItemFactory.CreateGameItem(itemQuantity.ItemID);
-                    CurrentPlayer.AddItemToInventory(item);
-                    RaiseMessage($"You receive {itemQuantity.Quantity} {item.Name}.");
+                    CurrentPlayer.AddItemToInventory(gameItem);
+                    RaiseMessage($"You receive one {gameItem.Name}.");
                 }
                 DeleteMonsterAtLocation(); // Deletes monste at current location
                 

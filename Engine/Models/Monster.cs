@@ -22,7 +22,6 @@ namespace Engine.Models
         public int RewardExperiencePoints { get; set; }
 
 
-        public ObservableCollection<ItemQuantity> Inventory { get; set; }
 
 
         public Monster(int hitPoints, int maximumHitpoints, string name, string description, string imageName, int rewardExperiencePoints, int gold, int minimumDamage, int maximumDamage)
@@ -35,7 +34,6 @@ namespace Engine.Models
             ImageName = $"pack://application:,,,/Engine;component/Images/Monsters/{imageName}";
             RewardExperiencePoints = rewardExperiencePoints;
             Gold = gold;
-            Inventory = new ObservableCollection<ItemQuantity>();
             MinimumDamage = minimumDamage;
             MaximumDamage = maximumDamage;
 

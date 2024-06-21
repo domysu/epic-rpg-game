@@ -237,8 +237,8 @@ namespace Engine.ViewModels
                 RaiseMessage($"You defeated the {CurrentMonster.Name}!");
                 CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
                 RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-                CurrentPlayer.Gold += CurrentMonster.RewardGold;
-                RaiseMessage($"You receive {CurrentMonster.RewardGold} gold.");
+                CurrentPlayer.Gold += CurrentMonster.Gold;
+                RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
                 foreach (ItemQuantity itemQuantity in CurrentMonster.Inventory)
                 {
                     GameItem item = ItemFactory.CreateGameItem(itemQuantity.ItemID);

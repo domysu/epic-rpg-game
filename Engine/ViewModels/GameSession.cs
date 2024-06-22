@@ -31,6 +31,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 CompleteQuestsAtLocation();
                 GivePlayerQuestsAtLocation();
+                LevelUp();
                
                 GetMonsterAtLocation();
                 CurrentTrader = CurrentLocation.TraderHere;
@@ -291,6 +292,17 @@ namespace Engine.ViewModels
                     RaiseMessage("You dont have enough gold to buy this item!");
                 }
                 
+            }
+
+        }
+
+        public void LevelUp()
+        {
+            if(CurrentPlayer.ExperiencePoints > (CurrentPlayer.Level * Math.PI * 4)) // Pi is for fun(just random)
+            {
+                CurrentPlayer.Level++;
+                CurrentPlayer.MaximumHitpoints += 1;
+
             }
 
         }

@@ -86,6 +86,7 @@ namespace Engine.ViewModels
                 Name = "Domis",
                 CharacterClass = "Fighter",
                 HitPoints = 10,
+                MaximumHitpoints = 10,
                 Gold = 0,
                 ExperiencePoints = 0,
                 Level = 1
@@ -244,7 +245,7 @@ namespace Engine.ViewModels
                     CurrentPlayer.AddItemToInventory(gameItem);
                     RaiseMessage($"You receive one {gameItem.Name}.");
                 }
-                DeleteMonsterAtLocation(); // Deletes monste at current location
+                DeleteMonsterAtLocation(); // TODO: Instead of deleting, add a delay to monster spawn
                 
               
             }
@@ -268,7 +269,7 @@ namespace Engine.ViewModels
                     RaiseMessage($"The {CurrentMonster.Name} killed you.");
                     CurrentPlayer.Death(); // Clears Players Inventory
                     CurrentLocation = CurrentWorld.LocationAt(0, -1); // Player's home
-                    CurrentPlayer.HitPoints = CurrentPlayer.Level * 10; // Completely heal the player
+                    CurrentPlayer.HitPoints = CurrentPlayer.MaximumHitpoints; // Completely heal the player
                 }
             }
         }

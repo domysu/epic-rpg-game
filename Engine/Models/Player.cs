@@ -11,13 +11,12 @@ namespace Engine.Models
 {
     public class Player : LivingEntity
     {
-       
         private string _characterClass;
-      
         private int _experiencePoints;
         private int _level;
+
+
         
-       
         public string CharacterClass
         {
             get { return _characterClass; }
@@ -46,18 +45,13 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(Level));
             }
         }
-     
       
-
-       
         public ObservableCollection<QuestStatus> Quests { get; set; }
         public Player()
         {
            
             Quests = new ObservableCollection<QuestStatus>();
         }
-
-
 
         public bool HasAllTheseItems(List<ItemQuantity> items)
         {
@@ -74,10 +68,11 @@ namespace Engine.Models
             }
             return true;
         }
+
         public void Death()
         {
-            Inventory.Clear();
-            AddItemToInventory(ItemFactory.CreateGameItem(1001));
+            Inventory.Clear(); // todo: maybe not whole inventory?
+            AddItemToInventory(ItemFactory.CreateGameItem(1001)); // so player has something to fight with
 
 
         }

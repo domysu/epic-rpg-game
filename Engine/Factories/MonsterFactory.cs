@@ -40,6 +40,12 @@ namespace Engine.Factories
                         AddLootItem(rat, 9004, 75);
                         return rat;
                     }
+                case 4:
+                    {
+                        Monster wolf = new Monster(8, 12, "Wolf", "A lone wolf", "Wolf.png", 35, 50, 12, 16);
+                           
+                        return wolf;
+                    }
                 default:
                     throw new ArgumentException(string.Format("No monster with id '{0}' exists", MonsterID));
             }

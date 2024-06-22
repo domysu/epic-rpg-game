@@ -13,14 +13,9 @@ namespace Engine.Models
        
         public string Description { get; set; }
         public string ImageName { get; set; }
-
-   
-
-       
         public int MinimumDamage { get; set; }
         public int MaximumDamage { get; set; }
         public int RewardExperiencePoints { get; set; }
-
 
 
 

@@ -14,9 +14,6 @@ namespace Engine.ViewModels
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer { get; set; }
 
-        public Shop CurrentShop { get; set; }
-
-  
 
         public Location CurrentLocation
         {
@@ -239,6 +236,7 @@ namespace Engine.ViewModels
                 RaiseMessage($"You defeated the {CurrentMonster.Name}!");
                 CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
                 RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
+                LevelUp();
                 CurrentPlayer.Gold += CurrentMonster.Gold;
                 RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
                 foreach (GameItem gameItem in CurrentMonster.Inventory)
@@ -302,6 +300,8 @@ namespace Engine.ViewModels
             {
                 CurrentPlayer.Level++;
                 CurrentPlayer.MaximumHitpoints += 1;
+                RaiseMessage($"You have leveled up to {CurrentPlayer.Level}");
+                RaiseMessage($"Your max hitpoints is now {CurrentPlayer.MaximumHitpoints}");
 
             }
 

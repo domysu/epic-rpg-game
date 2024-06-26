@@ -123,7 +123,7 @@
                 <TextBox x:Name="GameLogs" Background="Beige">
 
                     <TextBox.Resources>
-                        <Style TargetType="{x:Type Paragraph}">
+                           <Style TargetType="{x:Type Paragraph}">
                             <Setter Property="Margin" Value="0"></Setter>
                         </Style>
                         

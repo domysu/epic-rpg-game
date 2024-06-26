@@ -10,9 +10,9 @@ namespace Engine.Models
     public class LivingEntity : BaseNotificationClass
     {
         public string _name;
-        public int _hitPoints;
-        public int _maximumHitpoints;
-        public int _gold;
+        private int _hitPoints;
+        private int _maximumHitpoints;
+        private int _gold;
 
         public string Name
         {
@@ -56,6 +56,7 @@ namespace Engine.Models
 
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapons).ToList();
 
+        public bool IsDead => HitPoints <= 0;
         protected LivingEntity() { 
          
           Inventory = new ObservableCollection<GameItem>();
@@ -87,7 +88,7 @@ namespace Engine.Models
         public void RemoveItemFromInventory(GameItem item)
         {
             Inventory.Remove(item);
-            GroupedInventoryItem ItemToRemove = GroupedInventory.First(x => x.Item == item);
+            GroupedInventoryItem ItemToRemove = GroupedInventory.First(x => x.Item.ItemTypeID == item.ItemTypeID);
             if(ItemToRemove != null)
             {
                 if(ItemToRemove.Quantity == 1)

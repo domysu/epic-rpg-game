@@ -226,19 +226,24 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
             <TabControl>
                 <TabItem Header="Inventory">
                     
-                    <DataGrid ItemsSource="{Binding CurrentPlayer.Inventory}"
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.GroupedInventory}"
                               AutoGenerateColumns="False"
                               HeadersVisibility="Column">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Description"
-                    Binding="{Binding Name}"
+                    Binding="{Binding Item.Name}"
                     Width="*">
+                                
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Quantity"
+                                                Binding="{Binding Quantity}"
+                                                Width="*">
                                 
                             </DataGridTextColumn>
 
 
                             <DataGridTextColumn Header="Price"
-                    Binding="{Binding Price}"
+                    Binding="{Binding Item.Price}"
                     Width="*">
                                 
                             </DataGridTextColumn>

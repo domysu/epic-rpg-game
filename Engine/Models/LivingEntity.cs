@@ -73,7 +73,7 @@ namespace Engine.Models
             {
                 if (!GroupedInventory.Any(x => x.Item.ItemTypeID == item.ItemTypeID))
                 {
-                    GroupedInventory.Add(new GroupedInventoryItem(item, 0));
+                    GroupedInventory.Add(new GroupedInventoryItem(item, 1));
 
                 }
                 else

@@ -19,7 +19,8 @@ namespace Engine.Models
 
 
 
-        public Monster(int hitPoints, int maximumHitpoints, string name, string description, string imageName, int rewardExperiencePoints, int gold, int minimumDamage, int maximumDamage)
+        public Monster(int hitPoints, int maximumHitpoints, string name, string description, string imageName, int rewardExperiencePoints,
+            int gold, int minimumDamage, int maximumDamage) : base(name,hitPoints, maximumHitpoints, hitPoints)
         {
 
             HitPoints = hitPoints;
@@ -37,3 +38,4 @@ namespace Engine.Models
 
     }
 }
+    

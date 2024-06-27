@@ -57,10 +57,53 @@ namespace Engine.Models
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapons).ToList();
 
         public bool IsDead => HitPoints <= 0;
-        protected LivingEntity() { 
-         
-          Inventory = new ObservableCollection<GameItem>();
+
+        public event EventHandler OnKilled;
+        protected LivingEntity(string name,int hitPoints, int maximumHitPoints, int gold) {
+
+            Name = name;
+            HitPoints = hitPoints;
+            MaximumHitpoints = maximumHitPoints;
+            Gold = gold;
+
+            Inventory = new ObservableCollection<GameItem>();
             GroupedInventory = new ObservableCollection<GroupedInventoryItem>();
+        }
+
+        public void TakeDamage(int HitpointsOfDamage)
+        {
+            HitPoints -= HitpointsOfDamage;
+            if(IsDead)
+            {
+                HitPoints = 0;
+                RaiseOnKilledEvent();   
+            }
+        }
+        public void Heal(int HitpointsOfHeal)
+        {
+            HitPoints += HitpointsOfHeal;
+            if(HitPoints > MaximumHitpoints)
+            {
+                HitPoints = MaximumHitpoints;
+            }
+        }
+        public void FullyHeal()
+        {
+            HitPoints = MaximumHitpoints;
+        }
+        public void ReceiveGold(int GoldAmount)
+        {
+            Gold += GoldAmount;
+        }
+
+        public void SpendGold(int GoldAmount)
+        {
+            if(GoldAmount > Gold)
+            {
+                throw new ArgumentOutOfRangeException($"{Name} Does not have enough gold!");
+
+            }
+            Gold -= GoldAmount;
         }
 
         public void AddItemToInventory(GameItem item)
@@ -106,6 +149,10 @@ namespace Engine.Models
 
         }
 
+        private void RaiseOnKilledEvent()
+        {
+            OnKilled?.Invoke(this, new System.EventArgs());
+        }
 
     }
 }

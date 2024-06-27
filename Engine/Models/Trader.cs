@@ -11,7 +11,7 @@ namespace Engine.Models
     {
         public string Description { get; set; }
 
-        public Trader(string name, string description)
+        public Trader(string name, string description) : base(name, 99999, 999999, 999999)
         {
 
             Name = name;

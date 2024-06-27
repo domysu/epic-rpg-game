@@ -11,8 +11,28 @@ namespace Engine.ViewModels
         private Location _currentLocation;
         private Monster _currentMonster;
         private Trader _currentTrader;
+        private Player _currentPlayer;
         public World CurrentWorld { get; set; }
-        public Player CurrentPlayer { get; set; }
+        public Player CurrentPlayer { 
+            get 
+            {
+                return _currentPlayer;
+            } 
+            set { 
+                     if(_currentPlayer != null)
+                    {
+                        _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                    }
+                     _currentPlayer = value;
+                  if(_currentPlayer != null)
+                {
+                    _currentPlayer.OnKilled += OnCurrentPlayerKilled;
+                }
+                    
+               } 
+        
+        
+        }
 
 
         public Location CurrentLocation
@@ -40,14 +60,21 @@ namespace Engine.ViewModels
 
 
             set {
-                _currentMonster = value;
-                OnPropertyChanged(nameof(CurrentMonster));
-                OnPropertyChanged(nameof(HasMonster));
-
                 if(CurrentMonster != null)
                 {
+                    _currentMonster.OnKilled -= OnCurrentMonsterKilled;
+                }
+
+                _currentMonster = value;
+
+                if (CurrentMonster != null)
+                {
+                    _currentMonster.OnKilled += OnCurrentMonsterKilled;
                     RaiseMessage($"You have encountered {CurrentMonster.Name}!!");
                 }
+
+                OnPropertyChanged(nameof(CurrentMonster));
+                OnPropertyChanged(nameof(HasMonster));
             } 
         }
 
@@ -79,16 +106,8 @@ namespace Engine.ViewModels
         
         public GameSession()
         {
-            CurrentPlayer = new Player
-            {
-                Name = "Domis",
-                CharacterClass = "Fighter",
-                HitPoints = 10,
-                MaximumHitpoints = 10,
-                Gold = 0,
-                ExperiencePoints = 0,
-                Level = 1
-            };
+            CurrentPlayer = new Player("Domis", "Fighter", 1, 0, 10, 10, 50);
+          
             if (!CurrentPlayer.Weapons.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
@@ -128,7 +147,7 @@ namespace Engine.ViewModels
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
             }
         }
-
+            
 
         
 
@@ -225,27 +244,14 @@ namespace Engine.ViewModels
             }
             else
             {
-                CurrentMonster.HitPoints -= damageToMonster;
+                CurrentMonster.TakeDamage(damageToMonster);
                 RaiseMessage($"You hit the {CurrentMonster.Name} for {damageToMonster} points.");
             }
             // If monster if killed, collect rewards and loot
-            if (CurrentMonster.HitPoints <= 0)
+            if (CurrentMonster.IsDead)
             {
-              
-                RaiseMessage("");
-                RaiseMessage($"You defeated the {CurrentMonster.Name}!");
-                CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
-                RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-                LevelUp();
-                CurrentPlayer.Gold += CurrentMonster.Gold;
-                RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
-                foreach (GameItem gameItem in CurrentMonster.Inventory)
-                {
-                    CurrentPlayer.AddItemToInventory(gameItem);
-                    RaiseMessage($"You receive one {gameItem.Name}.");
-                }
-                DeleteMonsterAtLocation(); // TODO: Instead of deleting, add a delay to monster spawn
-                
+
+                GetMonsterAtLocation();
               
             }
             else
@@ -258,18 +264,34 @@ namespace Engine.ViewModels
                 }
                 else
                 {
-                    CurrentPlayer.HitPoints -= damageToPlayer;
                     RaiseMessage($"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
+
+                    CurrentPlayer.TakeDamage(damageToPlayer);
                 }
                 // If player is killed, clear their inventory and move back to their home.
-                if (CurrentPlayer.HitPoints <= 0)
-                {
-                    RaiseMessage("");
-                    RaiseMessage($"The {CurrentMonster.Name} killed you.");
-                    CurrentPlayer.Death(); // Clears Players Inventory
-                    CurrentLocation = CurrentWorld.LocationAt(0, -1); // Player's home
-                    CurrentPlayer.HitPoints = CurrentPlayer.MaximumHitpoints; // Completely heal the player
-                }
+            
+            }
+        }
+        public void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage("");
+            RaiseMessage($"You have been killed by {CurrentMonster.Name} ");
+            CurrentLocation = CurrentWorld.LocationAt(0, -1);
+            CurrentPlayer.FullyHeal();
+        }
+        public void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
+        {
+            RaiseMessage("");
+            RaiseMessage($"You defeated the {CurrentMonster.Name}!");
+            CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
+            RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
+            LevelUp();
+            CurrentPlayer.Gold += CurrentMonster.Gold;
+            RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
+            foreach (GameItem gameItem in CurrentMonster.Inventory)
+            {
+                CurrentPlayer.AddItemToInventory(gameItem);
+                RaiseMessage($"You receive one {gameItem.Name}.");
             }
         }
         

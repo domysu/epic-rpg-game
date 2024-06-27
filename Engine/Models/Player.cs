@@ -59,11 +59,9 @@ namespace Engine.Models
         {
             foreach(ItemQuantity item in items)
             {
-                Console.WriteLine($"Debugging: {0}", item.ItemID);
 
                 if (Inventory.Count(i=>i.ItemTypeID==item.ItemID) < item.Quantity)
                 {
-                    Console.WriteLine($"Debugging: {0}", item.ItemID);
                     return false;
                 }
 
@@ -75,6 +73,7 @@ namespace Engine.Models
         {
             Inventory.Clear(); // todo: maybe not whole inventory?
             AddItemToInventory(ItemFactory.CreateGameItem(1001)); // so player has something to fight with
+            
 
 
         }

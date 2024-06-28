@@ -69,13 +69,6 @@ namespace Engine.Models
             return true;
         }
 
-        public void Death()
-        {
-            Inventory.Clear(); // todo: maybe not whole inventory?
-            AddItemToInventory(ItemFactory.CreateGameItem(1001)); // so player has something to fight with
-            
-
-
-        }
+     
     }
 }

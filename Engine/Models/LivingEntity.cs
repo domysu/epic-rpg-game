@@ -86,7 +86,7 @@ namespace Engine.Models
             {
                 HitPoints = MaximumHitpoints;
             }
-        }
+         }
         public void FullyHeal()
         {
             HitPoints = MaximumHitpoints;

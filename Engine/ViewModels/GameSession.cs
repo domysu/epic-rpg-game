@@ -106,7 +106,7 @@ namespace Engine.ViewModels
         
         public GameSession()
         {
-            CurrentPlayer = new Player("Domis", "Fighter", 1, 0, 10, 10, 50);
+            CurrentPlayer = new Player("Domis", "Fighter", 1, 0, 10, 10, 0);
           
             if (!CurrentPlayer.Weapons.Any())
             {
@@ -286,7 +286,7 @@ namespace Engine.ViewModels
             CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
             LevelUp();
-            CurrentPlayer.Gold += CurrentMonster.Gold;
+            CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
             RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
             foreach (GameItem gameItem in CurrentMonster.Inventory)
             {
@@ -295,21 +295,20 @@ namespace Engine.ViewModels
             }
         }
         
-        public void BuyItem(int id)
+        public void BuyItem(int id) 
         {
             var item = CurrentTrader.Inventory.FirstOrDefault(x => x.ItemTypeID == id);
             if(item != null)
             {
-                if(CurrentPlayer.Gold >= item.Price) // checks if player has enough gold
+                try
                 {
-                    CurrentPlayer.AddItemToInventory(item); // adds item to inventory
-                    CurrentPlayer.Gold -= item.Price; // subtracts currentplayers gold from price of item
-                    RaiseMessage($"You have successfully bought {item.Name}");
 
+                    CurrentPlayer.SpendGold(item.Price);
+                    CurrentPlayer.AddItemToInventory(item);
                 }
-                else
+                catch (ArgumentOutOfRangeException)
                 {
-                    RaiseMessage("You dont have enough gold to buy this item!");
+                    RaiseMessage("Item was not bought!");
                 }
                 
             }

@@ -11,11 +11,11 @@ namespace Engine.Models
     {
 
        
-        public string Description { get; set; }
-        public string ImageName { get; set; }
-        public int MinimumDamage { get; set; }
-        public int MaximumDamage { get; set; }
-        public int RewardExperiencePoints { get; set; }
+        public string Description { get; }
+        public string ImageName { get; }
+        public int MinimumDamage { get; }
+        public int MaximumDamage { get; }
+        public int RewardExperiencePoints { get; }
 
 
 

@@ -12,8 +12,8 @@ namespace Engine.Models
         internal void AddLocation(int xCoordinate, int yCoordinate, string name, string description, string imageName)
         {
             Location loc = new Location();
-            loc .XCoordinate = xCoordinate;
-            loc .YCoordinate = yCoordinate;
+            loc.XCoordinate = xCoordinate;
+            loc.YCoordinate = yCoordinate;
             loc .Name = name;
             loc .Description = description;
             loc.ImageName = $"pack://application:,,,/Engine;component/Images/{imageName}";

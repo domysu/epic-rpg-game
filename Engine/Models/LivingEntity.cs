@@ -51,8 +51,8 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(MaximumHitpoints));
             } 
         }
-        public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; set; }
-        public ObservableCollection<GameItem> Inventory { get; set; }
+        public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
+        public ObservableCollection<GameItem> Inventory { get; }
 
         public List<GameItem> Weapons => Inventory.Where(i => i is Weapons).ToList();
 

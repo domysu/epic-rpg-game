@@ -8,7 +8,7 @@ namespace Engine.EventArgs
 {
     public class GameInformationEventArgs : System.EventArgs
     {
-        public string Message {  get; private set; }
+        public string Message {  get; }
         public GameInformationEventArgs(string message) {
         Message = message;
         

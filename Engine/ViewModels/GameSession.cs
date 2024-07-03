@@ -1,4 +1,5 @@
 ﻿using System.Linq;
+using System.Runtime.CompilerServices;
 using Engine.EventArgs;
 using Engine.Factories;
 using Engine.Models;
@@ -103,7 +104,7 @@ namespace Engine.ViewModels
 
 
         public Weapons CurrentWeapon { get; set; }
-        
+      
         public GameSession()
         {
             CurrentPlayer = new Player("Domis", "Fighter", 1, 0, 10, 10, 0);
@@ -115,8 +116,7 @@ namespace Engine.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
-
-           
+        
 
         }
         public void MoveNorth()
@@ -274,8 +274,8 @@ namespace Engine.ViewModels
         }
         public void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
         {
-            RaiseMessage("");
-            RaiseMessage($"You have been killed by {CurrentMonster.Name} ");
+            RaiseMessage(" ");
+            
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.FullyHeal();
         }

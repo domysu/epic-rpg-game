@@ -12,8 +12,7 @@ namespace Engine.Models
     public class Player : LivingEntity
     {
         private string _characterClass;
-        private int _experiencePoints;
-        private int _level;
+     
 
     
         
@@ -27,31 +26,14 @@ namespace Engine.Models
             }
         }
       
-        public int ExperiencePoints
-        {
-            get { return _experiencePoints; }
-            set
-            {
-                _experiencePoints = value;
-                OnPropertyChanged(nameof(ExperiencePoints));
-            }
-        }
-        public int Level
-        {
-            get { return _level; }
-            set
-            {
-                _level = value;
-                OnPropertyChanged(nameof(Level));
-            }
-        }
+   
+       
       
         public ObservableCollection<QuestStatus> Quests { get; set; }
         public Player(string name, string characterClass, int level, int experiencePoints, int hitPoints, int maximumHitpoints, int gold) : 
-            base(name, hitPoints,maximumHitpoints,gold)
+            base(name, hitPoints,maximumHitpoints,gold, level, experiencePoints)
         {
            CharacterClass = characterClass;
-            ExperiencePoints = experiencePoints;
             Quests = new ObservableCollection<QuestStatus>();
         }
 

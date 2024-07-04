@@ -22,11 +22,13 @@ namespace Engine.ViewModels
             set { 
                      if(_currentPlayer != null)
                     {
+                        _currentPlayer.OnLevelUp -= OnLevelingUp;
                         _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
                     }
                      _currentPlayer = value;
                   if(_currentPlayer != null)
                 {
+                    _currentPlayer.OnLevelUp += OnLevelingUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
                     
@@ -49,7 +51,7 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 CompleteQuestsAtLocation();
                 GivePlayerQuestsAtLocation();
-                LevelUp();
+    
                
                 GetMonsterAtLocation();
                 CurrentTrader = CurrentLocation.TraderHere;
@@ -187,6 +189,7 @@ namespace Engine.ViewModels
                         RaiseMessage($"You completed the '{quest.Name}' quest");
                         // Give the player the quest rewards
                         CurrentPlayer.ExperiencePoints += quest.RewardExperiencePoints;
+                        
                         RaiseMessage($"You receive {quest.RewardExperiencePoints} experience points");
                         CurrentPlayer.Gold += quest.RewardGold;
                         RaiseMessage($"You receive {quest.RewardGold} gold");
@@ -196,6 +199,7 @@ namespace Engine.ViewModels
                             CurrentPlayer.AddItemToInventory(rewardItem);
                             RaiseMessage($"You receive a {rewardItem.Name}");
                         }
+                        CurrentPlayer.CheckForLevelUp();
                         // Mark the Quest as completed
                         questToComplete.IsCompleted = true;
                     }
@@ -279,13 +283,20 @@ namespace Engine.ViewModels
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.FullyHeal();
         }
+        public void OnLevelingUp(object sender, System.EventArgs eventArgs)
+        {
+            CurrentPlayer.CheckForLevelUp();
+            RaiseMessage(" ");
+            RaiseMessage("You have leveled up!");
+        }
         public void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
         {
             RaiseMessage("");
             RaiseMessage($"You defeated the {CurrentMonster.Name}!");
             CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
+            
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-            LevelUp();
+      
             CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
             RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
             foreach (GameItem gameItem in CurrentMonster.Inventory)
@@ -293,6 +304,7 @@ namespace Engine.ViewModels
                 CurrentPlayer.AddItemToInventory(gameItem);
                 RaiseMessage($"You receive one {gameItem.Name}.");
             }
+            CurrentPlayer.CheckForLevelUp();
         }
         
         public void BuyItem(int id) 
@@ -315,18 +327,8 @@ namespace Engine.ViewModels
 
         }
 
-        public void LevelUp()
-        {
-            if(CurrentPlayer.ExperiencePoints > (CurrentPlayer.Level * Math.PI * 8)) // Pi is for fun(just random)
-            {
-                CurrentPlayer.Level++;
-                CurrentPlayer.MaximumHitpoints += 1;
-                RaiseMessage($"You have leveled up to {CurrentPlayer.Level}");
-                RaiseMessage($"Your max hitpoints is now {CurrentPlayer.MaximumHitpoints}");
-
-            }
-
-        }
+        
+        
 
         private void RaiseMessage(string message)
         {

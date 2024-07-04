@@ -13,6 +13,8 @@ namespace Engine.Models
         private int _hitPoints;
         private int _maximumHitpoints;
         private int _gold;
+        private int _experiencePoints;
+        private int _level;
 
         public string Name
         {
@@ -33,6 +35,14 @@ namespace Engine.Models
             }
 
         }
+        public int Level {
+            get { return _level; }
+            set 
+            { 
+                _level = value;
+                OnPropertyChanged(nameof(Level));            
+            }
+        }
 
         public int Gold
         {
@@ -51,6 +61,14 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(MaximumHitpoints));
             } 
         }
+        public int ExperiencePoints {
+            get { return _experiencePoints; }
+            set
+            {
+                _experiencePoints = value;
+                OnPropertyChanged(nameof(ExperiencePoints));
+            } 
+        }
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public ObservableCollection<GameItem> Inventory { get; }
 
@@ -58,13 +76,18 @@ namespace Engine.Models
 
         public bool IsDead => HitPoints <= 0;
 
+
+
+        public event EventHandler OnLevelUp;
         public event EventHandler OnKilled;
-        protected LivingEntity(string name,int hitPoints, int maximumHitPoints, int gold) {
+        protected LivingEntity(string name,int hitPoints, int maximumHitPoints, int gold, int level, int experiencePoints) {
 
             Name = name;
             HitPoints = hitPoints;
             MaximumHitpoints = maximumHitPoints;
             Gold = gold;
+            ExperiencePoints = experiencePoints;
+            Level = level;
 
             Inventory = new ObservableCollection<GameItem>();
             GroupedInventory = new ObservableCollection<GroupedInventoryItem>();
@@ -106,6 +129,16 @@ namespace Engine.Models
             Gold -= GoldAmount;
         }
 
+        public void CheckForLevelUp()
+        {
+            if(ExperiencePoints > Level * 40)
+            {
+
+                Level++;
+                RaiseOnLevelUpEvent();
+
+            }
+        }
         public void AddItemToInventory(GameItem item)
         {
             Inventory.Add(item);
@@ -152,6 +185,10 @@ namespace Engine.Models
         private void RaiseOnKilledEvent()
         {
             OnKilled?.Invoke(this, new System.EventArgs());
+        }
+        private void RaiseOnLevelUpEvent()
+        {
+            OnLevelUp?.Invoke(this, new System.EventArgs());
         }
 
     }

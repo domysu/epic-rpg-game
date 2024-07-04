@@ -43,7 +43,7 @@ namespace Engine.Models
                 _level = value;
                 ExperienceToLevelUp = _level * 35;
                 OnPropertyChanged(nameof(Level));
-                OnPropertyChanged(nameof(ExperienceRemaining));
+                OnPropertyChanged(nameof(ExperienceToLevelUp));
             }
         }
 
@@ -70,7 +70,6 @@ namespace Engine.Models
             {
                 _experiencePoints = value;
                 OnPropertyChanged(nameof(ExperiencePoints));
-                OnPropertyChanged(nameof(ExperienceRemaining));
             }
         }
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
@@ -86,16 +85,11 @@ namespace Engine.Models
                 _experienceToLevelUp = value;
               
                 OnPropertyChanged(nameof(ExperienceToLevelUp));
-                OnPropertyChanged(nameof(ExperienceRemaining));
                 
             }
 
         }   
-        public int ExperienceRemaining
-        {
-            get { return ExperienceToLevelUp - ExperiencePoints; }
-        }
-
+     
 
         public bool IsDead => HitPoints <= 0;
         public bool IsReadyToLevelUp => ExperiencePoints >= ExperienceToLevelUp;

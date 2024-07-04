@@ -103,7 +103,7 @@ namespace Engine.ViewModels
         public bool HasTrader => CurrentTrader != null;
 
 
-        public Weapons CurrentWeapon { get; set; }
+        public GameItem CurrentWeapon { get; set; }
       
         public GameSession()
         {
@@ -317,7 +317,7 @@ namespace Engine.ViewModels
 
         public void LevelUp()
         {
-            if(CurrentPlayer.ExperiencePoints > (CurrentPlayer.Level * Math.PI * 4)) // Pi is for fun(just random)
+            if(CurrentPlayer.ExperiencePoints > (CurrentPlayer.Level * Math.PI * 8)) // Pi is for fun(just random)
             {
                 CurrentPlayer.Level++;
                 CurrentPlayer.MaximumHitpoints += 1;

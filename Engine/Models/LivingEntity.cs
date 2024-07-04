@@ -46,7 +46,7 @@ namespace Engine.Models
         { 
             get { return _maximumHitpoints; }
             set 
-            { 
+            {  
                 _maximumHitpoints = value;
                 OnPropertyChanged(nameof(MaximumHitpoints));
             } 
@@ -54,7 +54,7 @@ namespace Engine.Models
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public ObservableCollection<GameItem> Inventory { get; }
 
-        public List<GameItem> Weapons => Inventory.Where(i => i is Weapons).ToList();
+        public List<GameItem> Weapons => Inventory.Where(i => i.Type == GameItem.ItemType.Weapon).ToList();
 
         public bool IsDead => HitPoints <= 0;
 

@@ -31,6 +31,7 @@ namespace Engine.ViewModels
                     _currentPlayer.OnLevelUp += OnLevelingUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
+                  //OnPropertyChanged(nameof(CurrentPlayer.ExperienceToLevelUp));
                     
                } 
         
@@ -287,6 +288,7 @@ namespace Engine.ViewModels
         {
             CurrentPlayer.CheckForLevelUp();
             RaiseMessage(" ");
+            OnPropertyChanged(nameof(CurrentPlayer.ExperienceToLevelUp));
             RaiseMessage("You have leveled up!");
         }
         public void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)

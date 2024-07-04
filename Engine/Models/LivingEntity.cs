@@ -15,6 +15,7 @@ namespace Engine.Models
         private int _gold;
         private int _experiencePoints;
         private int _level;
+        private int _experienceToLevelUp;
 
         public string Name
         {
@@ -25,7 +26,7 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(Name));
             }
         }
-            public int HitPoints
+        public int HitPoints
         {
             get { return _hitPoints; }
             set
@@ -37,29 +38,31 @@ namespace Engine.Models
         }
         public int Level {
             get { return _level; }
-            set 
-            { 
+            set
+            {
                 _level = value;
-                OnPropertyChanged(nameof(Level));            
+                ExperienceToLevelUp = _level * 35;
+                OnPropertyChanged(nameof(Level));
+                OnPropertyChanged(nameof(ExperienceRemaining));
             }
         }
 
         public int Gold
         {
             get { return _gold; }
-            set { 
-                _gold = value; 
+            set {
+                _gold = value;
                 OnPropertyChanged(nameof(Gold));
-                }
+            }
         }
-        public int MaximumHitpoints 
-        { 
+        public int MaximumHitpoints
+        {
             get { return _maximumHitpoints; }
-            set 
-            {  
+            set
+            {
                 _maximumHitpoints = value;
                 OnPropertyChanged(nameof(MaximumHitpoints));
-            } 
+            }
         }
         public int ExperiencePoints {
             get { return _experiencePoints; }
@@ -67,15 +70,35 @@ namespace Engine.Models
             {
                 _experiencePoints = value;
                 OnPropertyChanged(nameof(ExperiencePoints));
-            } 
+                OnPropertyChanged(nameof(ExperienceRemaining));
+            }
         }
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public ObservableCollection<GameItem> Inventory { get; }
 
         public List<GameItem> Weapons => Inventory.Where(i => i.Type == GameItem.ItemType.Weapon).ToList();
 
-        public bool IsDead => HitPoints <= 0;
+        public int  ExperienceToLevelUp { 
+            get 
+            { return _experienceToLevelUp; } 
+            set
+            {
+                _experienceToLevelUp = value;
+              
+                OnPropertyChanged(nameof(ExperienceToLevelUp));
+                OnPropertyChanged(nameof(ExperienceRemaining));
+                
+            }
 
+        }   
+        public int ExperienceRemaining
+        {
+            get { return ExperienceToLevelUp - ExperiencePoints; }
+        }
+
+
+        public bool IsDead => HitPoints <= 0;
+        public bool IsReadyToLevelUp => ExperiencePoints >= ExperienceToLevelUp;
 
 
         public event EventHandler OnLevelUp;
@@ -131,7 +154,7 @@ namespace Engine.Models
 
         public void CheckForLevelUp()
         {
-            if(ExperiencePoints > Level * 40)
+            if(IsReadyToLevelUp)
             {
 
                 Level++;

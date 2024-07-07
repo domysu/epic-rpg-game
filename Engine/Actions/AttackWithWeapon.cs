@@ -10,7 +10,7 @@ namespace Engine.Actions
         public event EventHandler<string> OnActionPerformed;
         public AttackWithWeapon(GameItem weapon, int minimumDamage, int maximumDamage)
         {
-            if (weapon.Category != GameItem.ItemCategory.Weapon)
+            if (weapon.Type != GameItem.ItemType.Weapon)
             {
                 throw new ArgumentException($"{weapon.Name} is not a weapon");
             }

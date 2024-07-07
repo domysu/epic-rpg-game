@@ -12,7 +12,7 @@ namespace Engine.Models
         public enum ItemType
         {
             Misc,
-            Weapon
+            Weapon  
         }
         public ItemType Type { get; set; }
         public int ItemTypeID { get; }

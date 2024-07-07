@@ -9,8 +9,7 @@ namespace Engine.Models
 {
     public class Monster : LivingEntity
     {
-
-       
+   
         public string Description { get; }
         public string ImageName { get; }
         public int MinimumDamage { get; }

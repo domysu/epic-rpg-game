@@ -23,7 +23,7 @@ namespace Engine.Factories
         }
         public static GameItem CreateGameItem(int itemTypeID)
         {
-            return  _standardGameItems.FirstOrDefault(item => item.ItemTypeID == itemTypeID)?.Clone();
+            return _standardGameItems.FirstOrDefault(item => item.ItemTypeID == itemTypeID)?.Clone();
           
             
         }

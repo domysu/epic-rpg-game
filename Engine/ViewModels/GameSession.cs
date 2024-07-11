@@ -241,17 +241,7 @@ namespace Engine.ViewModels
                 RaiseMessage("You must select a weapon, to attack.");
                 return;
             }
-            // Determine damage to monster
-            int damageToMonster = RandomNumberGenerator.NumberBetween(CurrentWeapon.MinimumDamage, CurrentWeapon.MaximumDamage);
-            if (damageToMonster == 0)
-            {
-                RaiseMessage($"You missed the {CurrentMonster.Name}.");
-            }
-            else
-            {
-                CurrentMonster.TakeDamage(damageToMonster);
-                RaiseMessage($"You hit the {CurrentMonster.Name} for {damageToMonster} points.");
-            }
+            CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
             // If monster if killed, collect rewards and loot
             if (CurrentMonster.IsDead)
             {
@@ -277,6 +267,10 @@ namespace Engine.ViewModels
             
             }
         }
+
+
+
+
         public void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
         {
             RaiseMessage(" ");

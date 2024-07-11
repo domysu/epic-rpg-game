@@ -16,6 +16,7 @@ namespace Engine.Models
         private int _experiencePoints;
         private int _level;
         private int _experienceToLevelUp;
+        private GameItem _currentWeapon;
 
         public string Name
         {
@@ -72,9 +73,31 @@ namespace Engine.Models
                 OnPropertyChanged(nameof(ExperiencePoints));
             }
         }
+
+        public GameItem CurrentWeapon
+        {
+            get { return _currentWeapon; }
+            set
+            {
+                if(_currentWeapon != null)
+                {
+                    _currentWeapon.Action.OnActionPerformed -= RaiseOnActionPerformedEvent;
+                }
+                _currentWeapon = value;
+                if(_currentWeapon != null)
+                {
+                    _currentWeapon.Action.OnActionPerformed += RaiseOnActionPerformedEvent;
+                }
+                OnPropertyChanged(nameof(CurrentWeapon));
+
+            }
+        }
+
+        
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public ObservableCollection<GameItem> Inventory { get; }
 
+        public event EventHandler<string> OnActionPerformed;
         public List<GameItem> Weapons => Inventory.Where(i => i.Type == GameItem.ItemType.Weapon).ToList();
 
         public int  ExperienceToLevelUp { 
@@ -118,6 +141,10 @@ namespace Engine.Models
                 HitPoints = 0;
                 RaiseOnKilledEvent();   
             }
+        }
+        public void UseCurrentWeaponOn(LivingEntity target)
+        {
+            CurrentWeapon.PerformAction(this, target);
         }
         public void Heal(int HitpointsOfHeal)
         {
@@ -206,6 +233,10 @@ namespace Engine.Models
         private void RaiseOnLevelUpEvent()
         {
             OnLevelUp?.Invoke(this, new System.EventArgs());
+        }
+        private void RaiseOnActionPerformedEvent(object sender, string result)
+        {
+            OnActionPerformed?.Invoke(this, result); 
         }
 
     }

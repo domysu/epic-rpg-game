@@ -33,7 +33,7 @@ namespace Engine.Factories
 
             GameItem weapon = new GameItem(GameItem.ItemType.Weapon, id, name, price, true);
             weapon.Action = new AttackWithWeapon(weapon, minimumDamage, maximumDamage);
-            _standardGameItems.Add(new GameItem(GameItem.ItemType.Weapon, id, name, price, true));   
+            _standardGameItems.Add(weapon); 
         }
         public static void BuildMisc(int id, string name, int price)
         {

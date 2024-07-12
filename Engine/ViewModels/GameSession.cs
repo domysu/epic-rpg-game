@@ -22,12 +22,14 @@ namespace Engine.ViewModels
             set { 
                      if(_currentPlayer != null)
                     {
+                        _currentPlayer.OnActionPerformed -= OnCurrentPlayerActionPerformed;
                         _currentPlayer.OnLevelUp -= OnLevelingUp;
                         _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
                     }
                      _currentPlayer = value;
                   if(_currentPlayer != null)
                 {
+                    _currentPlayer.OnActionPerformed += OnCurrentPlayerActionPerformed;
                     _currentPlayer.OnLevelUp += OnLevelingUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
@@ -161,6 +163,7 @@ namespace Engine.ViewModels
 
             if (CurrentLocation != CurrentWorld.LocationAt(0,-1))
             {
+                RaiseMessage(" ");
                 RaiseMessage("You have safely traveled home! ");
             }
             CurrentLocation = CurrentWorld.LocationAt(0, -1); // The coordinates are our home's coordinates
@@ -236,11 +239,14 @@ namespace Engine.ViewModels
         }
         public void AttackCurrentMonster()
         {
-            if (CurrentWeapon == null)
+
+            if(CurrentPlayer.CurrentWeapon == null)
             {
-                RaiseMessage("You must select a weapon, to attack.");
+                RaiseMessage(" ");
+                RaiseMessage("Please select a weapon before attacking");
                 return;
             }
+          
             CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
             // If monster if killed, collect rewards and loot
             if (CurrentMonster.IsDead)
@@ -263,7 +269,6 @@ namespace Engine.ViewModels
 
                     CurrentPlayer.TakeDamage(damageToPlayer);
                 }
-                // If player is killed, clear their inventory and move back to their home.
             
             }
         }
@@ -274,7 +279,7 @@ namespace Engine.ViewModels
         public void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
         {
             RaiseMessage(" ");
-            
+            RaiseMessage($"You have been killed by {CurrentMonster.Name}");
             CurrentLocation = CurrentWorld.LocationAt(0, -1);
             CurrentPlayer.FullyHeal();
         }
@@ -287,10 +292,11 @@ namespace Engine.ViewModels
         }
         public void OnCurrentMonsterKilled(object sender, System.EventArgs eventArgs)
         {
-            RaiseMessage("");
+            RaiseMessage(" ");
             RaiseMessage($"You defeated the {CurrentMonster.Name}!");
             CurrentPlayer.ExperiencePoints += CurrentMonster.RewardExperiencePoints;
-            
+
+            RaiseMessage(" ");
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
       
             CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
@@ -301,6 +307,11 @@ namespace Engine.ViewModels
                 RaiseMessage($"You receive one {gameItem.Name}.");
             }
             CurrentPlayer.CheckForLevelUp();
+        }
+        private void OnCurrentPlayerActionPerformed(object sender, string result) {
+
+            RaiseMessage(result);
+        
         }
         
         public void BuyItem(int id) 

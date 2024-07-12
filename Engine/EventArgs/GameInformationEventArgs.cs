@@ -11,6 +11,7 @@ namespace Engine.EventArgs
         public string Message {  get; }
         public GameInformationEventArgs(string message) {
         Message = message;
+
         
         }
     }

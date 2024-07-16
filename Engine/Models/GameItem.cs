@@ -24,8 +24,8 @@ namespace Engine.Models
 
         public bool IsUnique { get; }
       
-        public  AttackWithWeapon Action { get; set; }
-        public GameItem(ItemType type,int itemTypeID, string name, int price,  bool isUnique = false, AttackWithWeapon action = null ) {
+        public  IAction Action { get; set; }
+        public GameItem(ItemType type,int itemTypeID, string name, int price,  bool isUnique = false, IAction action = null ) {
 
             Type = type;
             ItemTypeID = itemTypeID;

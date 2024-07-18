@@ -35,7 +35,7 @@ namespace Engine.Actions
             }
             else
             {
-                ReportResult($"You hit the {target.Name.ToLower()} for {damage} points.");
+                ReportResult($"{actor.Name} hit {target.Name} for {damage} points.");
                 target.TakeDamage(damage);
             }
         }

@@ -14,30 +14,30 @@ namespace Engine.ViewModels
         private Trader _currentTrader;
         private Player _currentPlayer;
         public World CurrentWorld { get; set; }
-        public Player CurrentPlayer { 
-            get 
+        public Player CurrentPlayer {
+            get
             {
                 return _currentPlayer;
-            } 
-            set { 
-                     if(_currentPlayer != null)
-                    {
-                        _currentPlayer.OnActionPerformed -= OnCurrentPlayerActionPerformed;
-                        _currentPlayer.OnLevelUp -= OnLevelingUp;
-                        _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
-                    }
-                     _currentPlayer = value;
-                  if(_currentPlayer != null)
+            }
+            set {
+                if (_currentPlayer != null)
+                {
+                    _currentPlayer.OnActionPerformed -= OnCurrentPlayerActionPerformed;
+                    _currentPlayer.OnLevelUp -= OnLevelingUp;
+                    _currentPlayer.OnKilled -= OnCurrentPlayerKilled;
+                }
+                _currentPlayer = value;
+                if (_currentPlayer != null)
                 {
                     _currentPlayer.OnActionPerformed += OnCurrentPlayerActionPerformed;
                     _currentPlayer.OnLevelUp += OnLevelingUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
-                  //OnPropertyChanged(nameof(CurrentPlayer.ExperienceToLevelUp));
-                    
-               } 
-        
-        
+                //OnPropertyChanged(nameof(CurrentPlayer.ExperienceToLevelUp));
+
+            }
+
+
         }
 
 
@@ -54,8 +54,8 @@ namespace Engine.ViewModels
                 OnPropertyChanged(nameof(HasLocationToSouth));
                 CompleteQuestsAtLocation();
                 GivePlayerQuestsAtLocation();
-    
-               
+
+
                 GetMonsterAtLocation();
                 CurrentTrader = CurrentLocation.TraderHere;
             }
@@ -66,8 +66,9 @@ namespace Engine.ViewModels
 
 
             set {
-                if(CurrentMonster != null)
+                if (CurrentMonster != null)
                 {
+                    _currentMonster.OnActionPerformed -= OnCurrentMonsterActionPerformed;
                     _currentMonster.OnKilled -= OnCurrentMonsterKilled;
                 }
 
@@ -75,13 +76,14 @@ namespace Engine.ViewModels
 
                 if (CurrentMonster != null)
                 {
+                    _currentMonster.OnActionPerformed += OnCurrentMonsterActionPerformed;
                     _currentMonster.OnKilled += OnCurrentMonsterKilled;
                     RaiseMessage($"You have encountered {CurrentMonster.Name}!!");
                 }
 
                 OnPropertyChanged(nameof(CurrentMonster));
                 OnPropertyChanged(nameof(HasMonster));
-            } 
+            }
         }
 
         public Trader CurrentTrader
@@ -101,7 +103,7 @@ namespace Engine.ViewModels
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
 
         public bool HasLocationToSouth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate - 1) != null;
-      
+
         public bool HasLocationToWest => CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate) != null;
 
         public bool HasMonster => CurrentMonster != null;
@@ -109,11 +111,11 @@ namespace Engine.ViewModels
 
 
         public GameItem CurrentWeapon { get; set; }
-      
+
         public GameSession()
         {
             CurrentPlayer = new Player("Domis", "Fighter", 1, 0, 10, 10, 0);
-          
+
             if (!CurrentPlayer.Weapons.Any())
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
@@ -121,7 +123,7 @@ namespace Engine.ViewModels
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
-        
+
 
         }
         public void MoveNorth()
@@ -152,23 +154,23 @@ namespace Engine.ViewModels
                 CurrentLocation = CurrentWorld.LocationAt(CurrentLocation.XCoordinate - 1, CurrentLocation.YCoordinate);
             }
         }
-            
 
-        
 
-        
+
+
+
 
         public void WarpHome()
         {
 
-            if (CurrentLocation != CurrentWorld.LocationAt(0,-1))
+            if (CurrentLocation != CurrentWorld.LocationAt(0, -1))
             {
                 RaiseMessage(" ");
                 RaiseMessage("You have safely traveled home! ");
             }
             CurrentLocation = CurrentWorld.LocationAt(0, -1); // The coordinates are our home's coordinates
-         
-          
+
+
         }
         private void CompleteQuestsAtLocation()
         {
@@ -193,7 +195,7 @@ namespace Engine.ViewModels
                         RaiseMessage($"You completed the '{quest.Name}' quest");
                         // Give the player the quest rewards
                         CurrentPlayer.ExperiencePoints += quest.RewardExperiencePoints;
-                        
+
                         RaiseMessage($"You receive {quest.RewardExperiencePoints} experience points");
                         CurrentPlayer.Gold += quest.RewardGold;
                         RaiseMessage($"You receive {quest.RewardGold} gold");
@@ -224,7 +226,7 @@ namespace Engine.ViewModels
             }
         }
 
-      
+
 
         private void GetMonsterAtLocation()
         {
@@ -240,36 +242,25 @@ namespace Engine.ViewModels
         public void AttackCurrentMonster()
         {
 
-            if(CurrentPlayer.CurrentWeapon == null)
+            if (CurrentPlayer.CurrentWeapon == null)
             {
                 RaiseMessage(" ");
                 RaiseMessage("Please select a weapon before attacking");
                 return;
             }
-          
+
             CurrentPlayer.UseCurrentWeaponOn(CurrentMonster);
-            // If monster if killed, collect rewards and loot
+
             if (CurrentMonster.IsDead)
             {
 
                 GetMonsterAtLocation();
-              
+
             }
             else
             {
-                // If monster is still alive, let the monster attack
-                int damageToPlayer = RandomNumberGenerator.NumberBetween(CurrentMonster.MinimumDamage, CurrentMonster.MaximumDamage);
-                if (damageToPlayer == 0)
-                {
-                    RaiseMessage("The monster attacks, but misses you.");
-                }
-                else
-                {
-                    RaiseMessage($"The {CurrentMonster.Name} hit you for {damageToPlayer} points.");
+                CurrentMonster.UseCurrentWeaponOn(CurrentPlayer);
 
-                    CurrentPlayer.TakeDamage(damageToPlayer);
-                }
-            
             }
         }
 
@@ -298,7 +289,7 @@ namespace Engine.ViewModels
 
             RaiseMessage(" ");
             RaiseMessage($"You receive {CurrentMonster.RewardExperiencePoints} experience points.");
-      
+
             CurrentPlayer.ReceiveGold(CurrentMonster.Gold);
             RaiseMessage($"You receive {CurrentMonster.Gold} gold.");
             foreach (GameItem gameItem in CurrentMonster.Inventory)
@@ -311,9 +302,15 @@ namespace Engine.ViewModels
         private void OnCurrentPlayerActionPerformed(object sender, string result) {
 
             RaiseMessage(result);
-        
+
         }
-        
+
+        private void OnCurrentMonsterActionPerformed(object sender, string result)
+        {
+
+            RaiseMessage(result);
+
+        }
         public void BuyItem(int id) 
         {
             var item = CurrentTrader.Inventory.FirstOrDefault(x => x.ItemTypeID == id);

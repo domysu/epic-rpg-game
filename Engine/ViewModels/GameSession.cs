@@ -33,7 +33,6 @@ namespace Engine.ViewModels
                     _currentPlayer.OnLevelUp += OnLevelingUp;
                     _currentPlayer.OnKilled += OnCurrentPlayerKilled;
                 }
-                //OnPropertyChanged(nameof(CurrentPlayer.ExperienceToLevelUp));
 
             }
 
@@ -110,7 +109,6 @@ namespace Engine.ViewModels
         public bool HasTrader => CurrentTrader != null;
 
 
-        public GameItem CurrentWeapon { get; set; }
 
         public GameSession()
         {
@@ -234,11 +232,7 @@ namespace Engine.ViewModels
 
 
         }
-        private void DeleteMonsterAtLocation()
-        {
-            CurrentMonster = null;
-
-        }
+        
         public void AttackCurrentMonster()
         {
 

@@ -47,10 +47,10 @@ namespace Engine.Factories
                     }
                 case 4:
                     {
-                        Monster wolf = new Monster(8, 12, "Wolf", "A lone wolf", "Wolf.png", 35, 50);
+                        Monster wolf = new Monster(8, 12, "Wolf", "A lone wolf", "Wolf.png", 35, 50); // still not implemented
                            
                         return wolf;
-                    }
+                    } 
                 default:
                     throw new ArgumentException(string.Format("No monster with id '{0}' exists", MonsterID));
             }

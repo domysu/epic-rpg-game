@@ -19,6 +19,9 @@ namespace Engine.Factories
             BuildWeapon(5001, "Bite", 0, 3, 5);
             BuildWeapon(5002, "Sting", 0, 2, 4);
 
+            BuildConsumable(3001, "Cookie", 5, 3);
+
+
             BuildMisc(9001, "Snake fang", 1);
             BuildMisc(9002, "Snakeskin", 2);
             BuildMisc(9003, "Rat tail", 1);
@@ -46,7 +49,10 @@ namespace Engine.Factories
         
         public static void BuildConsumable(int id, string name, int price, int healAmount)
             {
-            _standardGameItems.Add(new GameItem(GameItem.ItemType.Consumable, id, name, price, healAmount));
+            GameItem item = new GameItem(GameItem.ItemType.Consumable, id, name, price, healAmount);
+            item.Action = new Heal(item, healAmount);
+            _standardGameItems.Add(item);
+           
 
             }
 

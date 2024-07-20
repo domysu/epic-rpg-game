@@ -13,7 +13,8 @@ namespace Engine.Models
         public enum ItemType
         {
             Misc,
-            Weapon  
+            Weapon,
+            Consumable
         }
         public ItemType Type { get; set; }
         public int ItemTypeID { get; }
@@ -22,10 +23,12 @@ namespace Engine.Models
         public int MinimumDamage { get; }
         public int MaximumDamage { get; }
 
+        public int HealAmount { get; }
+
         public bool IsUnique { get; }
       
         public  IAction Action { get; set; }
-        public GameItem(ItemType type,int itemTypeID, string name, int price,  bool isUnique = false, IAction action = null ) {
+        public GameItem(ItemType type,int itemTypeID, string name, int price, int healAmount = 0, bool isUnique = false, IAction action = null ) {
 
             Type = type;
             ItemTypeID = itemTypeID;
@@ -33,7 +36,7 @@ namespace Engine.Models
             Price = price;
             Action = action;    
             IsUnique = isUnique;
-        
+            HealAmount = healAmount;
             
         
         }
@@ -42,7 +45,7 @@ namespace Engine.Models
             Action?.Execute(actor, target);
         }
         public GameItem Clone() {
-        return new(Type, ItemTypeID, Name, Price, IsUnique, Action);    
+        return new(Type, ItemTypeID, Name, Price, HealAmount, IsUnique, Action);    
         
         }
     }

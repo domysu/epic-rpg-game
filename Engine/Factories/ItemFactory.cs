@@ -35,7 +35,7 @@ namespace Engine.Factories
         public static void BuildWeapon(int id, string name, int price, int minimumDamage, int maximumDamage)
         {
 
-            GameItem weapon = new GameItem(GameItem.ItemType.Weapon, id, name, price, true);
+            GameItem weapon = new GameItem(GameItem.ItemType.Weapon, id, name, price, 0, true);
             weapon.Action = new AttackWithWeapon(weapon, minimumDamage, maximumDamage);
             _standardGameItems.Add(weapon); 
         }
@@ -43,5 +43,13 @@ namespace Engine.Factories
         {
             _standardGameItems.Add(new GameItem(GameItem.ItemType.Misc, id, name, price));
         }
+        
+        public static void BuildConsumable(int id, string name, int price, int healAmount)
+            {
+            _standardGameItems.Add(new GameItem(GameItem.ItemType.Consumable, id, name, price, healAmount));
+
+            }
+
+
     }
 }

@@ -228,6 +228,7 @@ namespace Engine.Models
 
 
             OnPropertyChanged(nameof(Weapons));
+            OnPropertyChanged(nameof(Consumables));
         }
         public void UseConsumable()
         {

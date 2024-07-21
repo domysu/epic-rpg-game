@@ -203,7 +203,7 @@
                           DisplayMemberPath="Name"
                           SelectedValuePath="ItemTypeID"></ComboBox>
                 <Button Grid.Row="0" Grid.Column="2"
-                        Content="Consume"
+                        Content="Use"
                         Click="OnClick_UseConsumable"></Button>
                 
                 </Grid>

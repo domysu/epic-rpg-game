@@ -23,6 +23,7 @@ namespace Engine.Factories
                         Trader susan = new Trader("Susan", "Trader Susan");
                         _traders.Add(susan);
                         susan.AddItemToInventory(ItemFactory.CreateGameItem(1002));
+                        susan.AddItemToInventory(ItemFactory.CreateGameItem(3001));
                         return susan;
                     }
 

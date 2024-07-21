@@ -73,5 +73,10 @@ namespace myrpggame
             }
 
         }
+
+        private void OnClick_UseConsumable(object sender, RoutedEventArgs e)
+        {
+            _gameSession.OnConsumableUsed();
+        }
     }
 }

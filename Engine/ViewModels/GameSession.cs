@@ -13,6 +13,7 @@ namespace Engine.ViewModels
         private Monster _currentMonster;
         private Trader _currentTrader;
         private Player _currentPlayer;
+        private Player _currentConsumable;
         public World CurrentWorld { get; set; }
         public Player CurrentPlayer {
             get
@@ -97,6 +98,8 @@ namespace Engine.ViewModels
 
 
         }
+
+       
         public bool HasLocationToNorth => CurrentWorld.LocationAt(CurrentLocation.XCoordinate, CurrentLocation.YCoordinate + 1) != null;
 
         public bool HasLocationToEast => CurrentWorld.LocationAt(CurrentLocation.XCoordinate + 1, CurrentLocation.YCoordinate) != null;
@@ -118,6 +121,7 @@ namespace Engine.ViewModels
             {
                 CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(1001));
             }
+            CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
             CurrentWorld = WorldFactory.CreateWorld();
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
@@ -260,6 +264,21 @@ namespace Engine.ViewModels
 
 
 
+
+        public void OnConsumableUsed()
+        {
+            if(CurrentPlayer.Healable) {
+                CurrentPlayer.UseConsumable();
+                RaiseMessage(" ");
+                RaiseMessage(" You have successfully healed! ");
+            }
+         else
+            {
+                RaiseMessage(" ");
+                RaiseMessage("You are already at maximum hitpoints!");
+
+            }
+        }
 
         public void OnCurrentPlayerKilled(object sender, System.EventArgs eventArgs)
         {

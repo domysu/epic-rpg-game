@@ -147,6 +147,7 @@
         <Grid Grid.Row="2" Grid.Column="1" Background="Lavender">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -156,7 +157,7 @@
 
 
 
-            <!--Attack buttons,Shop-->
+            <!--Attack buttons,Consumables-->
             <Grid Grid.Row="0" Grid.Column="0"
                   Visibility="{Binding HasMonster, Converter={StaticResource BooleanToVisibility}}"
                   HorizontalAlignment="Center"
@@ -179,8 +180,33 @@
                         Content="Use"
                         Click="OnClick_AttackMonster"/>
 
+                
               
             </Grid>
+            
+            <Grid Grid.Row="1" Grid.Column="0"
+                  HorizontalAlignment="Center"
+                  VerticalAlignment="Center">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="150"></ColumnDefinition>
+                    <ColumnDefinition Width="10"></ColumnDefinition>
+                    <ColumnDefinition Width="50"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <ComboBox Grid.Row="0" Grid.Column="0"
+                          ItemsSource="{Binding CurrentPlayer.Consumables}"
+                          SelectedItem="{Binding CurrentPlayer.CurrentConsumable}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="ItemTypeID"></ComboBox>
+                <Button Grid.Row="0" Grid.Column="2"
+                        Content="Consume"
+                        Click="OnClick_UseConsumable"></Button>
+                
+                </Grid>
 
 
 

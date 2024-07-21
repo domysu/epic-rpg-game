@@ -17,6 +17,7 @@ namespace Engine.Models
         private int _level;
         private int _experienceToLevelUp;
         private GameItem _currentWeapon;
+        private GameItem _currentConsumable;
 
         public string Name
         {
@@ -93,12 +94,32 @@ namespace Engine.Models
             }
         }
 
+        public GameItem CurrentConsumable
+        {
+            get { return _currentConsumable; }
+            set
+            {
+                if( _currentConsumable != null)
+                {
+                    _currentConsumable.Action.OnActionPerformed -= RaiseOnActionPerformedEvent; 
+                }
+                _currentConsumable = value;
+                if( _currentConsumable != null)
+                {
+                    _currentConsumable.Action.OnActionPerformed += RaiseOnActionPerformedEvent;
+                }
+                OnPropertyChanged(nameof(CurrentConsumable));
+            }
+        }
+
         
         public ObservableCollection<GroupedInventoryItem> GroupedInventory { get; }
         public ObservableCollection<GameItem> Inventory { get; }
 
         public event EventHandler<string> OnActionPerformed;
+
         public List<GameItem> Weapons => Inventory.Where(i => i.Type == GameItem.ItemType.Weapon).ToList();
+        public List<GameItem> Consumables => Inventory.Where(i => i.Type == GameItem.ItemType.Consumable).ToList();
 
         public int  ExperienceToLevelUp { 
             get 
@@ -116,6 +137,8 @@ namespace Engine.Models
 
         public bool IsDead => HitPoints <= 0;
         public bool IsReadyToLevelUp => ExperiencePoints >= ExperienceToLevelUp;
+        public bool HasConsumables => Consumables.Any();
+        public bool Healable => HitPoints < MaximumHitpoints;
 
 
         public event EventHandler OnLevelUp;
@@ -148,11 +171,13 @@ namespace Engine.Models
         }
         public void Heal(int HitpointsOfHeal)
         {
+          
             HitPoints += HitpointsOfHeal;
             if(HitPoints > MaximumHitpoints)
             {
                 HitPoints = MaximumHitpoints;
             }
+            
          }
         public void FullyHeal()
         {
@@ -204,6 +229,16 @@ namespace Engine.Models
 
             OnPropertyChanged(nameof(Weapons));
         }
+        public void UseConsumable()
+        {
+            if (Healable)
+            {
+                CurrentConsumable.PerformAction(this, this);
+                RemoveItemFromInventory(CurrentConsumable);
+            }
+            
+          
+        }
 
         public void RemoveItemFromInventory(GameItem item)
         {
@@ -221,6 +256,7 @@ namespace Engine.Models
                 }
             }
             OnPropertyChanged(nameof(Weapons));
+            OnPropertyChanged(nameof(Consumables));
 
 
 

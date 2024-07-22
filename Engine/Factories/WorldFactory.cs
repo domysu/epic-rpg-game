@@ -22,7 +22,7 @@ namespace Engine.Factories
             newWorld.AddLocation(-1, -1, "Farmer's House",
                 "This is the house of your neighbor, Farmer Ted.",
                 "FarmHouse.png");
-            newWorld.LocationAt(-1, -1).TraderHere = TraderFactory.GetTrader(2);
+            newWorld.LocationAt(-1, -1).TraderHere = TraderFactory.GetTrader(2); 
             newWorld.AddLocation(0, -1, "Home", 
                 "This is your home",
                 "Home.png");

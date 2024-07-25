@@ -13,5 +13,16 @@ namespace Engine.Actions
         private readonly GameItem _itemUsed;
         private readonly EventHandler<string> OnActionPerformed;
 
+        public  BaseActions(GameItem ItemUsed)
+        {
+            _itemUsed = ItemUsed;
+
+        }
+        private void ReportResult(string message)
+        {
+            OnActionPerformed?.Invoke(this, message);
+
+        }
+
     }
 }

@@ -8,12 +8,12 @@ using System.Threading.Tasks;
 
 namespace Engine.Actions
 {
-    public class Heal : IAction
+    public class Heal : BaseActions, IAction
     {
         private readonly GameItem _item;
         private readonly int _healAmount;
         public event EventHandler<string> OnActionPerformed;
-        public Heal(GameItem item, int healAmount)
+        public Heal(GameItem item, int healAmount) : base(item)
         {
             _item = item;
             _healAmount = healAmount;
@@ -26,10 +26,6 @@ namespace Engine.Actions
             target.Heal(_healAmount);
 
         }
-        private void ReportResult(string message)
-        {
-            OnActionPerformed?.Invoke(this, message);
-                
-        }
+        
     }
 }

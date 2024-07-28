@@ -10,15 +10,15 @@ namespace Engine.Actions
 {
     public abstract class BaseActions
     {
-        private readonly GameItem _itemUsed;
-        private readonly EventHandler<string> OnActionPerformed;
+        protected readonly GameItem _itemUsed;
+        public event EventHandler<string> OnActionPerformed;
 
-        public  BaseActions(GameItem ItemUsed)
+        protected BaseActions(GameItem ItemUsed)
         {
             _itemUsed = ItemUsed;
 
         }
-        private void ReportResult(string message)
+       protected void ReportResult(string message)
         {
             OnActionPerformed?.Invoke(this, message);
 

@@ -6,7 +6,6 @@ namespace Engine.Actions
     {
         private readonly int _maximumDamage;
         private readonly int _minimumDamage;
-        public event EventHandler<string> OnActionPerformed;
         public AttackWithWeapon(GameItem weapon, int minimumDamage, int maximumDamage) : base(weapon)
         {
             if (weapon.Type != GameItem.ItemType.Weapon)
@@ -37,9 +36,6 @@ namespace Engine.Actions
                 target.TakeDamage(damage);
             }
         }
-        private void ReportResult(string result)
-        {
-            OnActionPerformed?.Invoke(this, result);
-        }
+        
     }
 }

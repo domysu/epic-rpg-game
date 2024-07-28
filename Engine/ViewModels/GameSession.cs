@@ -123,6 +123,7 @@ namespace Engine.ViewModels
             }
             CurrentPlayer.AddItemToInventory(ItemFactory.CreateGameItem(3001));
             CurrentWorld = WorldFactory.CreateWorld();
+            CurrentPlayer.AddRecipe(RecipeFactory.GetRecipeByID(1));
             CurrentLocation = CurrentWorld.LocationAt(0, 0);
 
 
@@ -214,6 +215,7 @@ namespace Engine.ViewModels
                 }
             }
         }
+     
 
 
         private void GivePlayerQuestsAtLocation()
@@ -270,7 +272,7 @@ namespace Engine.ViewModels
             if(CurrentPlayer.Healable) {
                 CurrentPlayer.UseConsumable();
                 RaiseMessage(" ");
-                RaiseMessage(" You have successfully healed! ");
+                RaiseMessage("You have successfully healed! ");
             }
          else
             {
@@ -312,6 +314,7 @@ namespace Engine.ViewModels
             }
             CurrentPlayer.CheckForLevelUp();
         }
+        #region events
         private void OnCurrentPlayerActionPerformed(object sender, string result) {
 
             RaiseMessage(result);
@@ -343,9 +346,10 @@ namespace Engine.ViewModels
             }
 
         }
+        #endregion
 
-        
-        
+
+
 
         private void RaiseMessage(string message)
         {

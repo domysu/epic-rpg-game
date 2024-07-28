@@ -331,6 +331,19 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
                     </DataGrid>
                 </TabItem>
 
+                <TabItem Header="Craft">
+                    <DataGrid ItemsSource="{Binding CurrentPlayer.Recipes}"
+                              AutoGenerateColumns="False"
+                      >
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Binding="{Binding Name}"></DataGridTextColumn>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+
+                </TabItem>
+                
+
 
 
 

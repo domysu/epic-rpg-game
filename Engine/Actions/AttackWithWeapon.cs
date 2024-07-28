@@ -2,13 +2,12 @@
 using Engine.Models;
 namespace Engine.Actions
 {
-    public class AttackWithWeapon : IAction
+    public class AttackWithWeapon : BaseActions, IAction
     {
-        private readonly GameItem _weapon;
         private readonly int _maximumDamage;
         private readonly int _minimumDamage;
         public event EventHandler<string> OnActionPerformed;
-        public AttackWithWeapon(GameItem weapon, int minimumDamage, int maximumDamage)
+        public AttackWithWeapon(GameItem weapon, int minimumDamage, int maximumDamage) : base(weapon)
         {
             if (weapon.Type != GameItem.ItemType.Weapon)
             {
@@ -22,7 +21,6 @@ namespace Engine.Actions
             {
                 throw new ArgumentException("maximumDamage must be >= minimumDamage");
             }
-            _weapon = weapon;
             _minimumDamage = minimumDamage;
             _maximumDamage = maximumDamage;
         }

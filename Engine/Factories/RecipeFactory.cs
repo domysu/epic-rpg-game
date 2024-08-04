@@ -14,12 +14,12 @@ namespace Engine.Factories
         static RecipeFactory() 
         {
             List<ItemQuantity> CraftingMaterials = new List<ItemQuantity>();
-            List<ItemQuantity> ItemToCraft = new List<ItemQuantity>();
+            
             CraftingMaterials.Add(new ItemQuantity(9001, 5));
-            ItemToCraft.Add(new ItemQuantity(3001, 1));
-            _recipes.Add(new Recipe(1, "Cookie", CraftingMaterials, ItemToCraft));
+            
+            _recipes.Add(new Recipe(1, "Cookie", CraftingMaterials, 3001));
 
-        }
+        } 
         public static Recipe GetRecipeByID(int id)
         {
             return _recipes.FirstOrDefault(recipe => recipe.Id == id);

@@ -52,6 +52,7 @@ namespace Engine.Models
             }
             return true;
         }
+
         public void AddRecipe(Recipe recipe)
         {
             if (!Recipes.Any(i=>i.Id == recipe.Id))
@@ -61,6 +62,6 @@ namespace Engine.Models
                 Recipes.Add(recipe);
             }
         }
-     
+        
     }
 }

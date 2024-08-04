@@ -69,7 +69,7 @@ namespace myrpggame
                 int itemId = (int)button.CommandParameter;
                
                 _gameSession.BuyItem(itemId);
-                
+
             }
 
         }
@@ -77,6 +77,15 @@ namespace myrpggame
         private void OnClick_UseConsumable(object sender, RoutedEventArgs e)
         {
             _gameSession.OnConsumableUsed();
+        }
+        private void OnClick_CraftItem(object sender, RoutedEventArgs e)
+        {
+            var button = sender as Button;
+            if (button != null)
+            {
+                int itemId = (int)button.CommandParameter;
+                _gameSession.CraftItem(itemId);
+            }
         }
     }
 }

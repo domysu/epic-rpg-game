@@ -359,7 +359,7 @@ Visibility="{Binding HasLocationToEast, Converter={StaticResource BooleanToVisib
                             <DataGridTemplateColumn>
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Button  Content="Craft" CommandParameter="{Binding Id}"></Button>
+                                        <Button  Click="OnClick_CraftItem" Content="Craft" CommandParameter="{Binding Id}"></Button>
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>

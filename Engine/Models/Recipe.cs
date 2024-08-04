@@ -11,9 +11,9 @@ namespace Engine.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public List<ItemQuantity> CraftingMaterials { get; set; }
-        public List<ItemQuantity> ItemToCraft { get; set; }
+        public int ItemToCraft { get; set; }
 
-        public Recipe(int id, string name, List<ItemQuantity> craftingMaterials, List<ItemQuantity> itemToCraft)
+        public Recipe(int id, string name, List<ItemQuantity> craftingMaterials, int itemToCraft)
         {
             Id = id;
             Name = name;

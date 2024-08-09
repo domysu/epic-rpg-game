@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:myrpggame" xmlns:viewmodels="clr-namespace:Engine.ViewModels;assembly=Engine" d:DataContext="{d:DesignInstance Type=viewmodels:GameSession}"
         mc:Ignorable="d"
-         Title="Epic Game" Height="768" Width="1024">
+         Title="Epic Game" Height="768" Width="1024"
+         KeyDown="MainWindow_OnKeyDown">
 
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibility" />

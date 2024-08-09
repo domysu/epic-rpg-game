@@ -315,7 +315,7 @@ namespace Engine.ViewModels
 
         public void CraftItem(int id)
         {
-            var recipe = CurrentPlayer.Recipes.FirstOrDefault(l => l.Id == id);
+            Recipe recipe = CurrentPlayer.Recipes.FirstOrDefault(l => l.Id == id);
             if (recipe == null)
             {
                 RaiseMessage("Recipe not found!");
@@ -324,16 +324,16 @@ namespace Engine.ViewModels
 
             if (CurrentPlayer.HasAllTheseItems(recipe.CraftingMaterials))
             {
-                var item = ItemFactory.CreateGameItem(recipe.ItemToCraft);
+                GameItem item = ItemFactory.CreateGameItem(recipe.ItemToCraft);
 
                 try
                 {
                     // Remove crafting materials from inventory
-                    foreach (var itemQuantity in recipe.CraftingMaterials)
+                    foreach (ItemQuantity itemQuantity in recipe.CraftingMaterials)
                     {
                         for (int i = 0; i < itemQuantity.Quantity; i++)
                         {
-                            var material = CurrentPlayer.Inventory.FirstOrDefault(it => it.ItemTypeID == itemQuantity.ItemID);
+                            GameItem material = CurrentPlayer.Inventory.FirstOrDefault(it => it.ItemTypeID == itemQuantity.ItemID);
                             if (material != null)
                             {
                                 CurrentPlayer.RemoveItemFromInventory(material);

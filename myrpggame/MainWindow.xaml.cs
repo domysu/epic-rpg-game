@@ -88,7 +88,7 @@ namespace myrpggame
                     }
                     case Key.S: {
                         _gameSession.MoveSouth();
-                        break;
+                        break; 
                     }
                     case Key.D: { 
                     _gameSession.MoveEast();

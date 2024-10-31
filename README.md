@@ -1,6 +1,6 @@
 # RPG Game
 
-Just A RPG game where I learn about object programming, and creating games.
+Just A RPG game where I learn about object programming and creating games.
 
 
 ### Prerequisites
